@@ -6,5 +6,5 @@ C:\Users\97mjh\OneDrive\바탕 화면\TimeTable-Generator\TimeTable-Generator\x6
 C:\Users\97mjh\OneDrive\바탕 화면\TimeTable-Generator\TimeTable-Generator\x64\Debug\TimeTable-Generator.vcxproj.SuggestedBindingRedirects.cache
 C:\Users\97mjh\OneDrive\바탕 화면\TimeTable-Generator\TimeTable-Generator\x64\Debug\TimeTableGenerator.MainForm.resources
 C:\Users\97mjh\OneDrive\바탕 화면\TimeTable-Generator\TimeTable-Generator\x64\Debug\TimeTable-Generator.vcxproj.GenerateResource.cache
-E:\OneDrive - dongguk.edu\CSE_Study\개인 프로젝트\TimeTable-Generator\TimeTable-Generator\x64\Debug\TimeTableGenerator.module.TimeTabForm.resources
-E:\OneDrive - dongguk.edu\CSE_Study\개인 프로젝트\TimeTable-Generator\TimeTable-Generator\x64\Debug\TimeTableGenerator.module.ShowTimeTabForm.resources
+E:\OneDrive - dongguk.edu\CSE_Study\개인 프로젝트\TimeTable-Generator\TimeTable-Generator\x64\Debug\TimeTableGenerator.generator.ui.ShowTimeTabForm.resources
+E:\OneDrive - dongguk.edu\CSE_Study\개인 프로젝트\TimeTable-Generator\TimeTable-Generator\x64\Debug\TimeTableGenerator.generator.ui.TimeTabForm.resources

@@ -122,8 +122,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainForm.cpp" />
-    <ClCompile Include="module\ShowTimeTabForm.cpp" />
-    <ClCompile Include="module\TimeTabForm.cpp" />
+    <ClCompile Include="generator\ui\ShowTimeTabForm.cpp" />
+    <ClCompile Include="generator\ui\TimeTabForm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\Utility.h">
@@ -135,25 +135,25 @@
     <ClInclude Include="core\Course.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="module\PersistentHeap.h" />
-    <ClInclude Include="module\ShowTimeTabForm.h">
+    <ClInclude Include="generator\algorithm\PersistentHeap.h" />
+    <ClInclude Include="generator\ui\ShowTimeTabForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="module\TimeTabForm.h">
+    <ClInclude Include="generator\ui\TimeTabForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="module\TimeTabGenerator.h" />
-    <ClInclude Include="module\WeightGraph.h" />
+    <ClInclude Include="generator\algorithm\TimeTabGenerator.h" />
+    <ClInclude Include="generator\algorithm\WeightGraph.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.h</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="module\ShowTimeTabForm.resx">
-      <DependentUpon>module\ShowTimeTabForm.h</DependentUpon>
+    <EmbeddedResource Include="generator\ui\ShowTimeTabForm.resx">
+      <DependentUpon>generator\ui\ShowTimeTabForm.h</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="module\TimeTabForm.resx">
-      <DependentUpon>module\TimeTabForm.h</DependentUpon>
+    <EmbeddedResource Include="generator\ui\TimeTabForm.resx">
+      <DependentUpon>generator\ui\TimeTabForm.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

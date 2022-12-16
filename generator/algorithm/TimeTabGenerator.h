@@ -1,7 +1,7 @@
 #pragma once
 
-#include "./../core/Course.h"
-#include "WeightGraph.h"
+#include "./../../core/Course.h"
+#include "./WeightGraph.h"
 
 #include <string>
 #include <vector>
@@ -20,21 +20,21 @@ public:
 
 
 private:
-	bool mExistEssentialConflict;			// 필수과목 사이에서의 충돌 확인
+	bool mExistEssentialConflict;           // 필수과목 사이에서의 충돌 확인
 
-	int mKValue;							// 한 페이지 당 보여주는 시간표 개수
-	int mTargetCredit;						// 목표학점
-	int mNumberOfEssentialCourse;			// 필수과목 수
-	int mNumberOfNormalCourse;				// 일반과목 수
-	vector<Course> mEssentialCourseList;	// 필수과목의 과목 정보
-	vector<Course> mNormalCourseList;		// 일반과목의 과목 정보
-	vector<int> mNormalCourseLank;			// 일반과목의 우선순위
+	int mKValue;                            // 한 페이지 당 보여주는 시간표 개수
+	int mTargetCredit;                      // 목표학점
+	int mNumberOfEssentialCourse;           // 필수과목 수
+	int mNumberOfNormalCourse;              // 일반과목 수
+	vector<Course> mEssentialCourseList;    // 필수과목의 과목 정보
+	vector<Course> mNormalCourseList;       // 일반과목의 과목 정보
+	vector<int> mNormalCourseLank;          // 일반과목의 우선순위
 
-	WeightedGraph mKspGraph;				// 가중치 그래프
-	Bits mCommonConflict;					// 필수과목과 충돌되는 과목
-	vector<Bits> mCourseConflict;			// i-th과목과 충돌되는 과목
+	WeightedGraph mKspGraph;                // 가중치 그래프
+	Bits mCommonConflict;                   // 필수과목과 충돌되는 과목
+	vector<Bits> mCourseConflict;           // i-th과목과 충돌되는 과목
 
-	vector<TimeTab> mTimeTabList;			// 생성된 시간표 리스트	
+	vector<TimeTab> mTimeTabList;           // 생성된 시간표 리스트	
 
 
 
@@ -60,11 +60,11 @@ public:
 
 
 
-private:	// 과목간의 충돌 여부를 체크
+private:   // 과목간의 충돌 여부를 체크
 	bool Check_CourseConflict(Course& fstCourse, Course& sndCourse)
 	{
-		if (fstCourse.id.base == sndCourse.id.base) return true;	// 학수번호 앞자리가 같을 때 (같은 과목)
-		for (auto& fstTime : fstCourse.times)						// 강의 시간이 겹칠 때
+		if (fstCourse.id.base == sndCourse.id.base) return true;   // 학수번호 앞자리가 같을 때 (같은 과목)
+		for (auto& fstTime : fstCourse.times)                      // 강의 시간이 겹칠 때
 			for (auto& sndTime : sndCourse.times)
 				if (fstTime.day == sndTime.day && (fstTime.start < sndTime.end && fstTime.end > sndTime.start)) return true;
 		return false;
@@ -72,7 +72,7 @@ private:	// 과목간의 충돌 여부를 체크
 
 
 
-private:	// 과목의 가중치를 계산
+private:   // 과목의 가중치를 계산
 	int Get_CourseWeight(int normCourseIdx)
 	{
 		switch (mNormalCourseLank[normCourseIdx]) {
@@ -88,29 +88,29 @@ private:	// 과목의 가중치를 계산
 
 
 
-private:	// 각 과목마다 충돌되는 과목을 정보를 가지고 있는 배열 구성
+private:   // 각 과목마다 충돌되는 과목을 정보를 가지고 있는 배열 구성
 	void Construct_CourseConflict()
 	{
 		// 필수 과목의 출돌
 		for (int i = 1; i <= mNumberOfEssentialCourse; i++) {
-			for (int j = i + 1; j <= mNumberOfEssentialCourse; j++)	// 필수 과목끼리 충돌이 있다면 false리턴
+			for (int j = i + 1; j <= mNumberOfEssentialCourse; j++)   // 필수 과목끼리 충돌이 있다면 false리턴
 				if (Check_CourseConflict(mEssentialCourseList[i], mEssentialCourseList[j])) mExistEssentialConflict = true;
 
-			for (int j = 1; j <= mNumberOfNormalCourse; j++)	// 필수 과목과 일반 과목 사이의 충돌 확인
+			for (int j = 1; j <= mNumberOfNormalCourse; j++)   // 필수 과목과 일반 과목 사이의 충돌 확인
 				if (Check_CourseConflict(mEssentialCourseList[i], mNormalCourseList[j])) mCommonConflict |= (Bits)1 << (Bits)j;
 		}
 
 		// 일반 과목의 충돌
 		for (int i = 1; i <= mNumberOfNormalCourse; i++) {
-			mCourseConflict[i] = mCommonConflict;		// commonConflict(모든 필수과목의 충돌되는 일반 과목들)
-			for (int j = i + 1; j <= mNumberOfNormalCourse; j++)		// 일반 과목 사이의 충돌 확인
+			mCourseConflict[i] = mCommonConflict;   // commonConflict(모든 필수과목의 충돌되는 일반 과목들)
+			for (int j = i + 1; j <= mNumberOfNormalCourse; j++)   // 일반 과목 사이의 충돌 확인
 				if (Check_CourseConflict(mNormalCourseList[i], mNormalCourseList[j])) mCourseConflict[i] |= (Bits)1 << (Bits)j;
 		}
 	}
 
 
 
-private:	// KspGraph 구성
+private:   // KspGraph 구성
 	void Construct_KspGraph()
 	{
 		if (mExistEssentialConflict) return;
@@ -121,23 +121,22 @@ private:	// KspGraph 구성
 		function<int(int)> GetCourseNum = [&](int idx) { return idx == source ? 0 : idx == sink ? mNumberOfNormalCourse + 1 : ((idx - 1) % mNumberOfNormalCourse) + 1; };
 
 
-
 		// TODO: long long -> int로 바꾸는 작업이 필요함
 
-		mKspGraph.Assign(sink + 1, 2e18, 1e18, 0);	// TODO: Graph의 가중치를 int형으로 바꿨다면 수정해야 함
+		mKspGraph.Assign(sink + 1, 2e18, 1e18, 0);   // TODO: Graph의 가중치를 int형으로 바꿨다면 수정해야 함
 
 		// Source와 일반 과목 연결
-		for (int v = 1; v <= mNumberOfNormalCourse; v++) {	// TODO: Source로부터의 간선 최적화 필요 
+		for (int v = 1; v <= mNumberOfNormalCourse; v++) {   // TODO: Source로부터의 간선 최적화 필요 
 			if (mNormalCourseList[v].credit > level) continue;
 			if (!(mCommonConflict & (Bits)1 << (Bits)v)) mKspGraph.Add_Directed_Edge(source, convVertexNum(v, mNormalCourseList[v].credit), Get_CourseWeight(v));
 		}
 
 		// Sink와 일반 과목 연결
-		for (int u = 1; u <= mNumberOfNormalCourse; u++)	// TODO: Sink로의 간선 최적화 필요 
+		for (int u = 1; u <= mNumberOfNormalCourse; u++)   // TODO: Sink로의 간선 최적화 필요 
 			if (!(mCommonConflict & (Bits)1 << (Bits)u)) mKspGraph.Add_Directed_Edge(convVertexNum(u, level), sink, 0);
 
 		// 일반 과목끼리 연결
-		for (int lev = 1; lev < level; lev++) {	// TODO: 간선 최적화 필요
+		for (int lev = 1; lev < level; lev++) {   // TODO: 간선 최적화 필요
 			for (int u = 1; u <= mNumberOfNormalCourse; u++) {
 				if (mCommonConflict & (Bits)1 << (Bits)u) continue;
 				for (int v = u + 1; v <= mNumberOfNormalCourse; v++) {
@@ -156,7 +155,7 @@ private:	// KspGraph 구성
 
 
 
-public:		// Ksp를 추가로 실행하여 시간표를 생성하고 반환
+public:   // Ksp를 추가로 실행하여 시간표를 생성하고 반환
 	tuple<vector<Course>, vector<vector<Course>>, vector<vector<int>>, GetTimeTabResult> Get_TimeTable(int page)
 	{
 		if (page <= 0) return { vector<Course>(), vector<vector<Course>>(), vector<vector<int>>(), GetTimeTabResult::CannotLoadPrev };
@@ -176,9 +175,9 @@ public:		// Ksp를 추가로 실행하여 시간표를 생성하고 반환
 
 		// 시간표에 포함된 과목 정보를 인접리스트 형태로 반환
 		int begin = mKValue * (page - 1), end = min((int)mTimeTabList.size(), mKValue * page);
-		vector<Course> essentialCourseList;				// 필수과목 (공통)
-		vector<vector<Course>> normalCourseAdjList;		// 일반과목 (시간표별)
-		vector<vector<int>> timeTbCourseLankCount;		// 우선순위 카운팅 (시간표별)
+		vector<Course> essentialCourseList;           // 필수과목 (공통)
+		vector<vector<Course>> normalCourseAdjList;   // 일반과목 (시간표별)
+		vector<vector<int>> timeTbCourseLankCount;    // 우선순위 카운팅 (시간표별)
 
 
 		for (int i = 1; i <= mNumberOfEssentialCourse; i++)

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../core/Utility.h"
+#include "./Utility.h"
 
 #include <fstream>
 #include <vector>
@@ -24,12 +24,12 @@ public:
 		}
 	};
 
-	string curriculum;				// 교과과정
-	CourseID id;					// 학수번호
-	string name;					// 교과목명
-	int credit;						// 학점
-	string professor;				// 담당교수
-	vector<LectureTime> times;		// 강의시간
+	string curriculum;              // 교과과정
+	CourseID id;                    // 학수번호
+	string name;                    // 교과목명
+	int credit;                     // 학점
+	string professor;               // 담당교수
+	vector<LectureTime> times;      // 강의시간
 
 	Course() {}
 	Course(string _curriculum, CourseID _id, string _name, int _credit, string _professor) :curriculum(_curriculum), id(_id), name(_name), credit(_credit), professor(_professor), times(vector<LectureTime>()) {}

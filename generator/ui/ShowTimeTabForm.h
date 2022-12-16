@@ -1,6 +1,6 @@
 #pragma once
 
-#include "./../core/Course.h"
+#include "./../../core/Course.h"
 
 
 namespace TimeTableGenerator {
@@ -13,22 +13,19 @@ namespace TimeTableGenerator {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// ShowTimeTab에 대한 요약입니다.
+	/// 시간표를 시각화하여 보여준다
 	/// </summary>
 	public ref class ShowTimeTabForm : public System::Windows::Forms::Form
 	{
 	public:
 		ShowTimeTabForm() { InitializeComponent(); }
-		ShowTimeTabForm(vector<Course>& courseList) {
+		ShowTimeTabForm(vector<Course>& courseList) 
+		{
 			InitializeComponent();
 			InitialzerMembers(courseList);
 		}
 
-
 	protected:
-		/// <summary>
-		/// 사용 중인 모든 리소스를 정리합니다.
-		/// </summary>
 		~ShowTimeTabForm()
 		{
 			if (components)
@@ -46,14 +43,13 @@ namespace TimeTableGenerator {
 
 	private:
 		/// <summary>
-		/// 필수 디자이너 변수입니다.
+		/// 필수 디자이너 변수
 		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// 디자이너 지원에 필요한 메서드입니다. 
-		/// 이 메서드의 내용을 코드 편집기로 수정하지 마세요.
+		/// 디자이너 지원에 필요한 메서드
 		/// </summary>
 		void InitializeComponent(void)
 		{

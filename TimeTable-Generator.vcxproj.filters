@@ -18,10 +18,10 @@
     <ClCompile Include="MainForm.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="module\TimeTabForm.cpp">
+    <ClCompile Include="generator\ui\TimeTabForm.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="module\ShowTimeTabForm.cpp">
+    <ClCompile Include="generator\ui\ShowTimeTabForm.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,19 +35,19 @@
     <ClInclude Include="core\Utility.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="module\TimeTabGenerator.h">
+    <ClInclude Include="generator\algorithm\TimeTabGenerator.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="module\PersistentHeap.h">
+    <ClInclude Include="generator\algorithm\PersistentHeap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="module\WeightGraph.h">
+    <ClInclude Include="generator\algorithm\WeightGraph.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="module\TimeTabForm.h">
+    <ClInclude Include="generator\ui\TimeTabForm.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="module\ShowTimeTabForm.h">
+    <ClInclude Include="generator\ui\ShowTimeTabForm.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

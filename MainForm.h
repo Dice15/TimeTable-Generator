@@ -1,7 +1,8 @@
 #pragma once
 
 #include "./core/Course.h"
-#include "./module/TimeTabForm.h"
+#include "./generator//ui/TimeTabForm.h"
+
 
 
 namespace TimeTableGenerator {
@@ -14,24 +15,16 @@ namespace TimeTableGenerator {
 	using namespace System::Drawing;
 	using namespace System::Collections::Generic;
 
+
 	/// <summary>
-	/// MainForm에 대한 요약입니다.
+	/// 메인 Form: 개설된 과목 리스트에서 원하는 과목을 선택하고 우선순위를 부여
 	/// </summary>
 	public ref class MainForm : public System::Windows::Forms::Form
 	{
 	public:
-		MainForm(void)
-		{
-			InitializeComponent();
-			//
-			//TODO: 생성자 코드를 여기에 추가합니다.
-			//
-		}
+		MainForm(void) { InitializeComponent(); }
 
 	protected:
-		/// <summary>
-		/// 사용 중인 모든 리소스를 정리합니다.
-		/// </summary>
 		~MainForm()
 		{
 			if (components)
@@ -82,14 +75,13 @@ namespace TimeTableGenerator {
 
 	private:
 		/// <summary>
-		/// 필수 디자이너 변수입니다.
+		/// 필수 디자이너 변수
 		/// </summary>
 		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// 디자이너 지원에 필요한 메서드입니다. 
-		/// 이 메서드의 내용을 코드 편집기로 수정하지 마세요.
+		/// 디자이너 지원에 필요한 메서드
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -237,6 +229,8 @@ namespace TimeTableGenerator {
 			this->gvSelectCourse->TabIndex = 3;
 			this->gvSelectCourse->CellValueChanged += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::gvSelectCourse_CellValueChanged);
 			this->gvSelectCourse->RowHeaderMouseDoubleClick += gcnew System::Windows::Forms::DataGridViewCellMouseEventHandler(this, &MainForm::gvSelectCourse_RowHeaderMouseDoubleClick);
+			this->gvSelectCourse->RowsAdded += gcnew System::Windows::Forms::DataGridViewRowsAddedEventHandler(this, &MainForm::gvSelectCourse_RowsAdded);
+			this->gvSelectCourse->RowsRemoved += gcnew System::Windows::Forms::DataGridViewRowsRemovedEventHandler(this, &MainForm::gvSelectCourse_RowsRemoved);
 			this->gvSelectCourse->Sorted += gcnew System::EventHandler(this, &MainForm::gvSelectCourse_Sorted);
 			// 
 			// SelectList_Column1
@@ -539,9 +533,22 @@ namespace TimeTableGenerator {
 					nomCourseLank.push_back(cosLank);
 				}
 			}
-		
+
 			auto timeTabForm = gcnew TimeTabForm(targetCredit, essCourseList, nomCourseList, nomCourseLank);
 			timeTabForm->Show();
 		}
-};
+
+
+
+	private: // gvSelectCourse에서 scroll의 유무에 따라 3번 column의 너비를 변경해야 한다
+		System::Void gvSelectCourse_RowsAdded(System::Object^ sender, System::Windows::Forms::DataGridViewRowsAddedEventArgs^ e) {
+			if (gvSelectCourse->Rows->Count > 22) 
+				gvSelectCourse->Columns[3]->Width = 82;
+		}
+
+		System::Void gvSelectCourse_RowsRemoved(System::Object^ sender, System::Windows::Forms::DataGridViewRowsRemovedEventArgs^ e) {
+			if (gvSelectCourse->Rows->Count < 23)
+				gvSelectCourse->Columns[3]->Width = 100;
+		}
+	};
 }

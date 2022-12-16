@@ -1,8 +1,10 @@
 #pragma once
 
-#include "./../core/Course.h"
-#include "./TimeTabGenerator.h"
+#include "./../../core/Course.h"
+#include "./../algorithm/TimeTabGenerator.h"
 #include "./ShowTimeTabForm.h"
+
+
 
 namespace TimeTableGenerator {
 
@@ -17,7 +19,7 @@ namespace TimeTableGenerator {
 	enum PageMove { Prev = -1, Hold = 0, Next = 1 };
 
 	/// <summary>
-	/// TimeTabForm에 대한 요약입니다.
+	/// 생성된 모든 시간표에 대한 내용을 요약해서 보여준다
 	/// </summary>
 	public ref class TimeTabForm : public System::Windows::Forms::Form
 	{
@@ -31,9 +33,6 @@ namespace TimeTableGenerator {
 		}
 
 	protected:
-		/// <summary>
-		/// 사용 중인 모든 리소스를 정리합니다.
-		/// </summary>
 		~TimeTabForm()
 		{
 			if (components)
@@ -44,7 +43,6 @@ namespace TimeTableGenerator {
 
 	private: System::Windows::Forms::Button^ btPrev;
 	private: System::Windows::Forms::Button^ btNext;
-
 	private: System::Windows::Forms::TextBox^ tbPageNum;
 	private: System::Windows::Forms::TextBox^ tbTimeTab0;
 	private: System::Windows::Forms::TextBox^ tbTimeTab1;
@@ -59,31 +57,12 @@ namespace TimeTableGenerator {
 	private: System::Windows::Forms::TextBox^ tbLankCntL0;
 	private: System::Windows::Forms::TextBox^ tbLankCntR0;
 	private: System::Windows::Forms::TextBox^ tbLankCntR1;
-
-
-
 	private: System::Windows::Forms::TextBox^ tbLankCntL1;
 	private: System::Windows::Forms::TextBox^ tbLankCntR3;
-
-
-
-
-
-
-
 	private: System::Windows::Forms::TextBox^ tbLankCntL3;
 	private: System::Windows::Forms::TextBox^ tbLankCntR2;
-
-
-
-
-
-
 	private: System::Windows::Forms::TextBox^ tbLankCntL2;
 	private: System::Windows::Forms::TextBox^ tbLankCntR4;
-
-
-
 	private: System::Windows::Forms::TextBox^ tbLankCntL4;
 	private: System::Windows::Forms::Button^ btShowTimeTab0;
 	private: System::Windows::Forms::Button^ btShowTimeTab1;
@@ -92,20 +71,15 @@ namespace TimeTableGenerator {
 	private: System::Windows::Forms::Button^ btShowTimeTab4;
 
 
-
-
-
-
 	private:
 		/// <summary>
-		/// 필수 디자이너 변수입니다.
+		/// 필수 디자이너 변수
 		/// </summary>
 		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// 디자이너 지원에 필요한 메서드입니다. 
-		/// 이 메서드의 내용을 코드 편집기로 수정하지 마세요.
+		/// 디자이너 지원에 필요한 메서드
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -141,7 +115,7 @@ namespace TimeTableGenerator {
 			// 
 			// btPrev
 			// 
-			this->btPrev->Location = System::Drawing::Point(547, 608);
+			this->btPrev->Location = System::Drawing::Point(547, 686);
 			this->btPrev->Name = L"btPrev";
 			this->btPrev->Size = System::Drawing::Size(65, 41);
 			this->btPrev->TabIndex = 1;
@@ -151,7 +125,7 @@ namespace TimeTableGenerator {
 			// 
 			// btNext
 			// 
-			this->btNext->Location = System::Drawing::Point(695, 608);
+			this->btNext->Location = System::Drawing::Point(695, 686);
 			this->btNext->Name = L"btNext";
 			this->btNext->Size = System::Drawing::Size(65, 41);
 			this->btNext->TabIndex = 2;
@@ -163,7 +137,7 @@ namespace TimeTableGenerator {
 			// 
 			this->tbPageNum->BackColor = System::Drawing::SystemColors::Control;
 			this->tbPageNum->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->tbPageNum->Location = System::Drawing::Point(618, 623);
+			this->tbPageNum->Location = System::Drawing::Point(618, 701);
 			this->tbPageNum->Name = L"tbPageNum";
 			this->tbPageNum->ReadOnly = true;
 			this->tbPageNum->Size = System::Drawing::Size(71, 14);
@@ -174,14 +148,13 @@ namespace TimeTableGenerator {
 			// 
 			this->tbTimeTab0->BackColor = System::Drawing::SystemColors::ControlLightLight;
 			this->tbTimeTab0->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->tbTimeTab0->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->tbTimeTab0->Font = (gcnew System::Drawing::Font(L"굴림", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
 			this->tbTimeTab0->Location = System::Drawing::Point(16, 57);
 			this->tbTimeTab0->Multiline = true;
 			this->tbTimeTab0->Name = L"tbTimeTab0";
 			this->tbTimeTab0->ReadOnly = true;
-			this->tbTimeTab0->ScrollBars = System::Windows::Forms::ScrollBars::Horizontal;
-			this->tbTimeTab0->Size = System::Drawing::Size(250, 420);
+			this->tbTimeTab0->Size = System::Drawing::Size(250, 502);
 			this->tbTimeTab0->TabIndex = 10;
 			this->tbTimeTab0->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
@@ -189,14 +162,13 @@ namespace TimeTableGenerator {
 			// 
 			this->tbTimeTab1->BackColor = System::Drawing::SystemColors::ControlLightLight;
 			this->tbTimeTab1->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->tbTimeTab1->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->tbTimeTab1->Font = (gcnew System::Drawing::Font(L"굴림", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
 			this->tbTimeTab1->Location = System::Drawing::Point(272, 57);
 			this->tbTimeTab1->Multiline = true;
 			this->tbTimeTab1->Name = L"tbTimeTab1";
 			this->tbTimeTab1->ReadOnly = true;
-			this->tbTimeTab1->ScrollBars = System::Windows::Forms::ScrollBars::Horizontal;
-			this->tbTimeTab1->Size = System::Drawing::Size(250, 420);
+			this->tbTimeTab1->Size = System::Drawing::Size(250, 502);
 			this->tbTimeTab1->TabIndex = 11;
 			this->tbTimeTab1->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
@@ -204,14 +176,13 @@ namespace TimeTableGenerator {
 			// 
 			this->tbTimeTab2->BackColor = System::Drawing::SystemColors::ControlLightLight;
 			this->tbTimeTab2->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->tbTimeTab2->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->tbTimeTab2->Font = (gcnew System::Drawing::Font(L"굴림", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
 			this->tbTimeTab2->Location = System::Drawing::Point(528, 57);
 			this->tbTimeTab2->Multiline = true;
 			this->tbTimeTab2->Name = L"tbTimeTab2";
 			this->tbTimeTab2->ReadOnly = true;
-			this->tbTimeTab2->ScrollBars = System::Windows::Forms::ScrollBars::Horizontal;
-			this->tbTimeTab2->Size = System::Drawing::Size(250, 420);
+			this->tbTimeTab2->Size = System::Drawing::Size(250, 502);
 			this->tbTimeTab2->TabIndex = 12;
 			this->tbTimeTab2->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
@@ -219,14 +190,13 @@ namespace TimeTableGenerator {
 			// 
 			this->tbTimeTab3->BackColor = System::Drawing::SystemColors::ControlLightLight;
 			this->tbTimeTab3->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->tbTimeTab3->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->tbTimeTab3->Font = (gcnew System::Drawing::Font(L"굴림", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
 			this->tbTimeTab3->Location = System::Drawing::Point(784, 57);
 			this->tbTimeTab3->Multiline = true;
 			this->tbTimeTab3->Name = L"tbTimeTab3";
 			this->tbTimeTab3->ReadOnly = true;
-			this->tbTimeTab3->ScrollBars = System::Windows::Forms::ScrollBars::Horizontal;
-			this->tbTimeTab3->Size = System::Drawing::Size(250, 420);
+			this->tbTimeTab3->Size = System::Drawing::Size(250, 502);
 			this->tbTimeTab3->TabIndex = 13;
 			this->tbTimeTab3->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
@@ -234,14 +204,13 @@ namespace TimeTableGenerator {
 			// 
 			this->tbTimeTab4->BackColor = System::Drawing::SystemColors::ControlLightLight;
 			this->tbTimeTab4->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->tbTimeTab4->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->tbTimeTab4->Font = (gcnew System::Drawing::Font(L"굴림", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
 			this->tbTimeTab4->Location = System::Drawing::Point(1040, 57);
 			this->tbTimeTab4->Multiline = true;
 			this->tbTimeTab4->Name = L"tbTimeTab4";
 			this->tbTimeTab4->ReadOnly = true;
-			this->tbTimeTab4->ScrollBars = System::Windows::Forms::ScrollBars::Horizontal;
-			this->tbTimeTab4->Size = System::Drawing::Size(250, 420);
+			this->tbTimeTab4->Size = System::Drawing::Size(250, 502);
 			this->tbTimeTab4->TabIndex = 14;
 			this->tbTimeTab4->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
@@ -321,7 +290,7 @@ namespace TimeTableGenerator {
 			this->tbLankCntL0->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbLankCntL0->Font = (gcnew System::Drawing::Font(L"굴림", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
-			this->tbLankCntL0->Location = System::Drawing::Point(16, 476);
+			this->tbLankCntL0->Location = System::Drawing::Point(16, 557);
 			this->tbLankCntL0->Multiline = true;
 			this->tbLankCntL0->Name = L"tbLankCntL0";
 			this->tbLankCntL0->ReadOnly = true;
@@ -336,7 +305,7 @@ namespace TimeTableGenerator {
 			this->tbLankCntR0->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbLankCntR0->Font = (gcnew System::Drawing::Font(L"굴림", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
-			this->tbLankCntR0->Location = System::Drawing::Point(140, 476);
+			this->tbLankCntR0->Location = System::Drawing::Point(140, 557);
 			this->tbLankCntR0->Multiline = true;
 			this->tbLankCntR0->Name = L"tbLankCntR0";
 			this->tbLankCntR0->ReadOnly = true;
@@ -351,7 +320,7 @@ namespace TimeTableGenerator {
 			this->tbLankCntR1->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbLankCntR1->Font = (gcnew System::Drawing::Font(L"굴림", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
-			this->tbLankCntR1->Location = System::Drawing::Point(396, 476);
+			this->tbLankCntR1->Location = System::Drawing::Point(396, 557);
 			this->tbLankCntR1->Multiline = true;
 			this->tbLankCntR1->Name = L"tbLankCntR1";
 			this->tbLankCntR1->ReadOnly = true;
@@ -366,7 +335,7 @@ namespace TimeTableGenerator {
 			this->tbLankCntL1->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbLankCntL1->Font = (gcnew System::Drawing::Font(L"굴림", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
-			this->tbLankCntL1->Location = System::Drawing::Point(272, 476);
+			this->tbLankCntL1->Location = System::Drawing::Point(272, 557);
 			this->tbLankCntL1->Multiline = true;
 			this->tbLankCntL1->Name = L"tbLankCntL1";
 			this->tbLankCntL1->ReadOnly = true;
@@ -381,7 +350,7 @@ namespace TimeTableGenerator {
 			this->tbLankCntR3->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbLankCntR3->Font = (gcnew System::Drawing::Font(L"굴림", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
-			this->tbLankCntR3->Location = System::Drawing::Point(908, 476);
+			this->tbLankCntR3->Location = System::Drawing::Point(908, 557);
 			this->tbLankCntR3->Multiline = true;
 			this->tbLankCntR3->Name = L"tbLankCntR3";
 			this->tbLankCntR3->ReadOnly = true;
@@ -396,7 +365,7 @@ namespace TimeTableGenerator {
 			this->tbLankCntL3->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbLankCntL3->Font = (gcnew System::Drawing::Font(L"굴림", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
-			this->tbLankCntL3->Location = System::Drawing::Point(784, 476);
+			this->tbLankCntL3->Location = System::Drawing::Point(784, 557);
 			this->tbLankCntL3->Multiline = true;
 			this->tbLankCntL3->Name = L"tbLankCntL3";
 			this->tbLankCntL3->ReadOnly = true;
@@ -411,7 +380,7 @@ namespace TimeTableGenerator {
 			this->tbLankCntR2->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbLankCntR2->Font = (gcnew System::Drawing::Font(L"굴림", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
-			this->tbLankCntR2->Location = System::Drawing::Point(652, 476);
+			this->tbLankCntR2->Location = System::Drawing::Point(652, 557);
 			this->tbLankCntR2->Multiline = true;
 			this->tbLankCntR2->Name = L"tbLankCntR2";
 			this->tbLankCntR2->ReadOnly = true;
@@ -426,7 +395,7 @@ namespace TimeTableGenerator {
 			this->tbLankCntL2->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbLankCntL2->Font = (gcnew System::Drawing::Font(L"굴림", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
-			this->tbLankCntL2->Location = System::Drawing::Point(528, 476);
+			this->tbLankCntL2->Location = System::Drawing::Point(528, 557);
 			this->tbLankCntL2->Multiline = true;
 			this->tbLankCntL2->Name = L"tbLankCntL2";
 			this->tbLankCntL2->ReadOnly = true;
@@ -441,7 +410,7 @@ namespace TimeTableGenerator {
 			this->tbLankCntR4->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbLankCntR4->Font = (gcnew System::Drawing::Font(L"굴림", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
-			this->tbLankCntR4->Location = System::Drawing::Point(1164, 476);
+			this->tbLankCntR4->Location = System::Drawing::Point(1164, 557);
 			this->tbLankCntR4->Multiline = true;
 			this->tbLankCntR4->Name = L"tbLankCntR4";
 			this->tbLankCntR4->ReadOnly = true;
@@ -456,7 +425,7 @@ namespace TimeTableGenerator {
 			this->tbLankCntL4->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbLankCntL4->Font = (gcnew System::Drawing::Font(L"굴림", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
-			this->tbLankCntL4->Location = System::Drawing::Point(1040, 476);
+			this->tbLankCntL4->Location = System::Drawing::Point(1040, 557);
 			this->tbLankCntL4->Multiline = true;
 			this->tbLankCntL4->Name = L"tbLankCntL4";
 			this->tbLankCntL4->ReadOnly = true;
@@ -467,7 +436,7 @@ namespace TimeTableGenerator {
 			// 
 			// btShowTimeTab0
 			// 
-			this->btShowTimeTab0->Location = System::Drawing::Point(16, 557);
+			this->btShowTimeTab0->Location = System::Drawing::Point(16, 638);
 			this->btShowTimeTab0->Name = L"btShowTimeTab0";
 			this->btShowTimeTab0->Size = System::Drawing::Size(250, 35);
 			this->btShowTimeTab0->TabIndex = 30;
@@ -477,7 +446,7 @@ namespace TimeTableGenerator {
 			// 
 			// btShowTimeTab1
 			// 
-			this->btShowTimeTab1->Location = System::Drawing::Point(272, 557);
+			this->btShowTimeTab1->Location = System::Drawing::Point(272, 638);
 			this->btShowTimeTab1->Name = L"btShowTimeTab1";
 			this->btShowTimeTab1->Size = System::Drawing::Size(250, 35);
 			this->btShowTimeTab1->TabIndex = 31;
@@ -487,7 +456,7 @@ namespace TimeTableGenerator {
 			// 
 			// btShowTimeTab2
 			// 
-			this->btShowTimeTab2->Location = System::Drawing::Point(528, 557);
+			this->btShowTimeTab2->Location = System::Drawing::Point(528, 638);
 			this->btShowTimeTab2->Name = L"btShowTimeTab2";
 			this->btShowTimeTab2->Size = System::Drawing::Size(250, 35);
 			this->btShowTimeTab2->TabIndex = 32;
@@ -497,7 +466,7 @@ namespace TimeTableGenerator {
 			// 
 			// btShowTimeTab3
 			// 
-			this->btShowTimeTab3->Location = System::Drawing::Point(784, 557);
+			this->btShowTimeTab3->Location = System::Drawing::Point(784, 638);
 			this->btShowTimeTab3->Name = L"btShowTimeTab3";
 			this->btShowTimeTab3->Size = System::Drawing::Size(250, 35);
 			this->btShowTimeTab3->TabIndex = 33;
@@ -507,7 +476,7 @@ namespace TimeTableGenerator {
 			// 
 			// btShowTimeTab4
 			// 
-			this->btShowTimeTab4->Location = System::Drawing::Point(1040, 557);
+			this->btShowTimeTab4->Location = System::Drawing::Point(1040, 638);
 			this->btShowTimeTab4->Name = L"btShowTimeTab4";
 			this->btShowTimeTab4->Size = System::Drawing::Size(250, 35);
 			this->btShowTimeTab4->TabIndex = 34;
@@ -520,7 +489,7 @@ namespace TimeTableGenerator {
 			this->AutoScaleDimensions = System::Drawing::SizeF(7, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::Control;
-			this->ClientSize = System::Drawing::Size(1304, 672);
+			this->ClientSize = System::Drawing::Size(1304, 741);
 			this->Controls->Add(this->btShowTimeTab4);
 			this->Controls->Add(this->btShowTimeTab3);
 			this->Controls->Add(this->btShowTimeTab2);
