@@ -17,7 +17,7 @@ namespace TimeTableGenerator {
 
 
 	/// <summary>
-	/// 메인 Form: 개설된 과목 리스트에서 원하는 과목을 선택하고 우선순위를 부여
+	/// 메인 Form: 개설된 과목 리스트에서 원하는 과목을 선택하고 선호도를 부여
 	/// </summary>
 	public ref class MainForm : public System::Windows::Forms::Form
 	{
@@ -431,17 +431,17 @@ namespace TimeTableGenerator {
 		System::Void Init_gvSelectCourse() {
 			DataGridViewComboBoxColumn^ cbColumn = gcnew DataGridViewComboBoxColumn();
 			cbColumn->Width = 75;
-			cbColumn->HeaderText = "우선순위";
+			cbColumn->HeaderText = "선호도";
 			cbColumn->DisplayStyle = DataGridViewComboBoxDisplayStyle::ComboBox;
-			cbColumn->Items->Add("0필수");
-			cbColumn->Items->Add("1순위");
-			cbColumn->Items->Add("2순위");
-			cbColumn->Items->Add("3순위");
-			cbColumn->Items->Add("4순위");
-			cbColumn->Items->Add("5순위");
+			cbColumn->Items->Add("0) 필수");
+			cbColumn->Items->Add("1) *****");
+			cbColumn->Items->Add("2) ****");
+			cbColumn->Items->Add("3) ***");
+			cbColumn->Items->Add("4) **");
+			cbColumn->Items->Add("5) *");
 			gvSelectCourse->Columns->Add(cbColumn);
 		}
-
+		
 		System::Void Init_cbTargetCredit() {
 			cbTargetCredit->SelectedIndex = 0;
 		}
@@ -472,6 +472,7 @@ namespace TimeTableGenerator {
 			if (int::TryParse(tbIdxSelect->Text, cListIdx) && (0 <= cListIdx && cListIdx < gvCourseList->Rows->Count)) Select_Form_CourseList(cListIdx);
 			else if (cListIdx >= gvCourseList->Rows->Count) MessageBox::Show("Idx 최대값은 " + gvCourseList->Rows->Count.ToString() + "입니다");
 			else MessageBox::Show("\"" + tbIdxSelect->Text + "\"는(은) " + "자연수로 변환할 수 없습니다");
+			tbIdxSelect->Text = "";
 		}
 
 		System::Void tbIdxSelect_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {	// Idx 입력 후 enter키
@@ -480,6 +481,7 @@ namespace TimeTableGenerator {
 				if (int::TryParse(tbIdxSelect->Text, cListIdx) && (0 <= cListIdx && cListIdx < gvCourseList->Rows->Count)) Select_Form_CourseList(cListIdx);
 				else if (cListIdx >= gvCourseList->Rows->Count) MessageBox::Show("Idx 최대값은 " + gvCourseList->Rows->Count.ToString() + "입니다");
 				else MessageBox::Show("\"" + tbIdxSelect->Text + "\"는(은) " + "자연수로 변환할 수 없습니다");
+				tbIdxSelect->Text = "";
 			}
 		}
 

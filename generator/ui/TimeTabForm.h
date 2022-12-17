@@ -595,11 +595,11 @@ namespace TimeTableGenerator {
 
 			mCourseLnakLabel = gcnew List<String^>();
 			mCourseLnakLabel->Add(" 필수");
-			mCourseLnakLabel->Add("1순위");
-			mCourseLnakLabel->Add("2순위");
-			mCourseLnakLabel->Add("3순위");
-			mCourseLnakLabel->Add("4순위");
-			mCourseLnakLabel->Add("5순위");
+			mCourseLnakLabel->Add("*****");
+			mCourseLnakLabel->Add(" ****");
+			mCourseLnakLabel->Add("  ***");
+			mCourseLnakLabel->Add("   **");
+			mCourseLnakLabel->Add("    *");
 
 			// 페이지 로드
 			mPageIndex = 1;
