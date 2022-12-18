@@ -14,6 +14,10 @@
 </div>
 </br>
 
+### 0. 실행 방법
+<img src="https://user-images.githubusercontent.com/102275981/208285528-35c2cdfa-e32d-4b0b-8063-6d43c85efd27.png"/>
+</br>
+
 ### 1. 강의 선택하기, 강의 취소하기
 <img src="https://user-images.githubusercontent.com/102275981/208245198-39e5fbd2-5e69-461d-b024-bbe50b31ca25.png"/>
 </br>
