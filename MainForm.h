@@ -451,6 +451,7 @@ namespace TimeTableGenerator {
 	private: // gvCourseList에서 과목을 선택하는 이벤트
 		System::Void Select_Form_CourseList(int cListIdx) {	// courseList에서 선택한 과목을 selectCourse에 추가
 			if (isSelectedCourse[cListIdx]) { MessageBox::Show("이미 선택한 과목입니다"); return; }
+			if (gvSelectCourse->Rows->Count >= 60) { MessageBox::Show("최대 60개의 과목을 선택할 수 있습니다 (TimeTable - Beta)"); return; }
 
 			isSelectedCourse[cListIdx] = true;
 			int sListIdx = gvSelectCourse->Rows->Add(
