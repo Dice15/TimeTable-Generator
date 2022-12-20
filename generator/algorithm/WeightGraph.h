@@ -58,6 +58,12 @@ public:   // 그래프를 구성하는 멤버 함수
 		mReverseGraph.assign(_size, vector<Edge>());
 	}
 
+	void Resize(size_t _size) {
+		mGraphSize = _size;
+		mGraph.resize(_size, vector<Edge>());
+		mReverseGraph.resize(_size, vector<Edge>());
+	}
+
 	void Add_Directed_Edge(int _from, int _to, WeightType _weight) {
 		mGraph[_from].push_back(Edge(_to, _weight, mEdgeCount));
 		mReverseGraph[_to].push_back(Edge(_from, _weight, mEdgeCount));

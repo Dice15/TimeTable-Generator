@@ -519,25 +519,21 @@ namespace TimeTableGenerator {
 			if (!(targetCredit > 0)) { MessageBox::Show("목표 학점을 1이상으로 설정하세요"); return; }
 
 			auto allCourseList = CourseManager::Load_CourseList();
-			auto essCourseList = vector<Course>(1);
-			auto nomCourseList = vector<Course>(1);
-			auto nomCourseLank = vector<int>(1);
+			auto numberOfEssentialCourse = 0;
+			auto numberOfNoramlCourse = 0;
+			auto courseInfoList = vector<pair<Course, int>>(1);
 
 			for (int i = 0; i < gvSelectCourse->RowCount; i++) {
+				int cosIdx = stoi(ToStdString(gvSelectCourse->Rows[i]->Cells[0]->Value->ToString()));
 				int cosLank = ToStdString(gvSelectCourse->Rows[i]->Cells[4]->Value->ToString())[0] - 48;
-				int cosNum = stoi(ToStdString(gvSelectCourse->Rows[i]->Cells[0]->Value->ToString()));
 
-				if (cosLank == 0) {
-					targetCredit -= allCourseList[cosNum].credit;
-					essCourseList.push_back(allCourseList[cosNum]);
-				}
-				else if (cosLank > 0) {
-					nomCourseList.push_back(allCourseList[cosNum]);
-					nomCourseLank.push_back(cosLank);
-				}
+				if (cosLank == 0) numberOfEssentialCourse++;
+				else numberOfNoramlCourse++;
+
+				courseInfoList.push_back({ allCourseList[cosIdx], cosLank });
 			}
 
-			auto timeTabForm = gcnew TimeTabForm(targetCredit, essCourseList, nomCourseList, nomCourseLank);
+			auto timeTabForm = gcnew TimeTabForm(targetCredit, numberOfEssentialCourse, numberOfNoramlCourse, courseInfoList);
 			timeTabForm->Show();
 		}
 

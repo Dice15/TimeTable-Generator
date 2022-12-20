@@ -5,6 +5,7 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
 #include <functional>
 #include <algorithm>
 using namespace std;
@@ -15,45 +16,50 @@ class TimeTabGenerator
 public:
 	using Bits = long long;
 	using TimeTab = Bits;
-	enum GetTimeTabResult { CannotLoadPrev, CannotLoadNext, EssentialConflict, CannotCreateTimeTab, LoadSuccessfully };
+	enum GetTimeTabResult { InvalidInput, CannotLoadPrev, CannotLoadNext, LoadSuccessfully };
 
 
 
 private:
-	bool mExistEssentialConflict;           // 필수과목 사이에서의 충돌 확인
+	bool mValidInput;                                // 제대로된 input인지 확인
 
-	int mKValue;                            // 한 페이지 당 보여주는 시간표 개수
-	int mTargetCredit;                      // 목표학점
-	int mNumberOfEssentialCourse;           // 필수과목 수
-	int mNumberOfNormalCourse;              // 일반과목 수
-	vector<Course> mEssentialCourseList;    // 필수과목의 과목 정보
-	vector<Course> mNormalCourseList;       // 일반과목의 과목 정보
-	vector<int> mNormalCourseLank;          // 일반과목의 우선순위
+	int mKValue;                                     // 한 페이지 당 보여주는 시간표 개수
+	int mTargetCredit;                               // 목표학점
+	int mNumberOfCourse;                             // 과목 수
+	int mNumberOfEssentialCourse;                    // 필수과목 수 
+	int mNumberOfNormalCourse;                       // 일반과목 수
+	vector<pair<Course, int>> mCourseInfoList;       // { 과목, 선호도 }
+	
 
-	WeightedGraph mKspGraph;                // 가중치 그래프
-	Bits mCommonConflict;                   // 필수과목과 충돌되는 과목
-	vector<Bits> mCourseConflict;           // i-th과목과 충돌되는 과목
+	int mSource;
+	int mSubSource;
+	int mSink;
+	WeightedGraph mKspGraph;                         // 가중치 그래프
+	vector<Bits> mCourseConflict;                    // i-th과목과 충돌되는 과목
 
-	vector<TimeTab> mTimeTabList;           // 생성된 시간표 리스트	
+	vector<TimeTab> mTimeTabList;                    // 생성된 시간표 리스트	
 
 
 
 public:
 	TimeTabGenerator() {}
-	TimeTabGenerator(int kValue, int targetCredit, vector<Course>& essnCourseList, vector<Course>& normCourseList, vector<int>& nomCourseLank)
-		: mExistEssentialConflict(false)
+	TimeTabGenerator(int kValue, int targetCredit, int numberOfEssentialCourse, int numberOfNoramlCourse, vector<pair<Course, int>>& courseInfoList)
+		: mValidInput(true)
 
 		, mKValue(kValue)
 		, mTargetCredit(targetCredit)
-		, mNumberOfEssentialCourse((int)essnCourseList.size() - 1)
-		, mNumberOfNormalCourse((int)normCourseList.size() - 1)
-		, mEssentialCourseList(essnCourseList)
-		, mNormalCourseList(normCourseList)
-		, mNormalCourseLank(nomCourseLank)
+		, mNumberOfCourse(courseInfoList.size())
+		, mNumberOfEssentialCourse(numberOfEssentialCourse)
+		, mNumberOfNormalCourse(numberOfNoramlCourse)
+		, mCourseInfoList(courseInfoList)
 
+		, mSource(0)
+		, mSubSource(mNumberOfEssentialCourse + 1)
+		, mSink(mNumberOfEssentialCourse + 1)
 		, mKspGraph(WeightedGraph())
-		, mCommonConflict((Bits)0)
-		, mCourseConflict(vector<Bits>(normCourseList.size())) {
+		, mCourseConflict(vector<Bits>((int)courseInfoList.size()))
+
+		, mTimeTabList(vector<TimeTab>()) {
 		Construct_CourseConflict();
 		Construct_KspGraph();
 	}
@@ -75,12 +81,14 @@ private:   // 과목간의 충돌 여부를 체크
 private:   // 과목의 가중치를 계산
 	int Get_CourseWeight(int normCourseIdx)
 	{
-		switch (mNormalCourseLank[normCourseIdx]) {
-		case 1: return mNormalCourseList[normCourseIdx].credit;
-		case 2: return mNormalCourseList[normCourseIdx].credit * 25;
-		case 3: return mNormalCourseList[normCourseIdx].credit * 625;
-		case 4: return mNormalCourseList[normCourseIdx].credit * 15625;
-		case 5: return mNormalCourseList[normCourseIdx].credit * 390625;
+		auto& [course, lank] = mCourseInfoList[normCourseIdx];
+		switch (lank) {
+		case 0: return 0;
+		case 1: return course.credit;
+		case 2: return course.credit * 25;
+		case 3: return course.credit * 625;
+		case 4: return course.credit * 15625;
+		case 5: return course.credit * 390625;
 		default: break;
 		}
 		return -1;
@@ -91,20 +99,90 @@ private:   // 과목의 가중치를 계산
 private:   // 각 과목마다 충돌되는 과목을 정보를 가지고 있는 배열 구성
 	void Construct_CourseConflict()
 	{
-		// 필수 과목의 출돌
-		for (int i = 1; i <= mNumberOfEssentialCourse; i++) {
-			for (int j = i + 1; j <= mNumberOfEssentialCourse; j++)   // 필수 과목끼리 충돌이 있다면 false리턴
-				if (Check_CourseConflict(mEssentialCourseList[i], mEssentialCourseList[j])) mExistEssentialConflict = true;
+		for (int i = 1; i < mNumberOfCourse; i++)
+			for (int j = i + 1; j < mNumberOfCourse; j++)
+				if (Check_CourseConflict(mCourseInfoList[i].first, mCourseInfoList[j].first)) {
+					mCourseConflict[i] |= (Bits)1 << (Bits)j;
+					mCourseConflict[j] |= (Bits)1 << (Bits)i;
+				}
+	}
 
-			for (int j = 1; j <= mNumberOfNormalCourse; j++)   // 필수 과목과 일반 과목 사이의 충돌 확인
-				if (Check_CourseConflict(mEssentialCourseList[i], mNormalCourseList[j])) mCommonConflict |= (Bits)1 << (Bits)j;
+
+
+private:   // KspGraph에 필수과목 추가
+	void Add_EssentialCourse()
+	{
+		mKspGraph.Assign(mSink + 1, 2e18, 1e18, 0);   // TODO: long long -> int로 바꾸는 작업이 필요함
+
+	
+		// classify 작업
+		unordered_map<string, vector<int>> classify;   // 같은 학수번호 앞자리를 가진 과목끼리 묶음 (동일 과목 분류 작업)
+
+		for (int i = 1; i <= mNumberOfEssentialCourse; i++)
+			classify[mCourseInfoList[i].first.id.base].push_back(i);
+
+
+		// Source -> 필수과목
+		vector<int> prevIdxList = { mSource };
+
+		for (auto& [id_base, idxList] : classify) {   // Source, 필수과목 그래프 연결
+			for (auto& u : prevIdxList)
+				for (auto& v : idxList)
+					if (!(mCourseConflict[u] & (Bits)1 << (Bits)v)) mKspGraph.Add_Directed_Edge(u, v, Get_CourseWeight(v));
+
+			prevIdxList = idxList;
+			mTargetCredit -= mCourseInfoList[idxList[0]].first.credit;
 		}
 
-		// 일반 과목의 충돌
-		for (int i = 1; i <= mNumberOfNormalCourse; i++) {
-			mCourseConflict[i] = mCommonConflict;   // commonConflict(모든 필수과목의 충돌되는 일반 과목들)
-			for (int j = i + 1; j <= mNumberOfNormalCourse; j++)   // 일반 과목 사이의 충돌 확인
-				if (Check_CourseConflict(mNormalCourseList[i], mNormalCourseList[j])) mCourseConflict[i] |= (Bits)1 << (Bits)j;
+
+		// 목표학점에 따른 예외 처리
+		if (mTargetCredit == 0) {   // 필수과목으로 목표학점을 달성하는 경우
+			for (auto& u : prevIdxList)   // 필수과목과 Sink 그래프 연결
+				mKspGraph.Add_Directed_Edge(u, mSink, 0);
+		}
+		else if (mTargetCredit < 0) {   // 목표학점을 초과하는 경우
+			mValidInput = false;
+		}
+		else {
+			mSink = mSubSource + (mNumberOfNormalCourse * mTargetCredit) + 1;
+			mKspGraph.Resize(mSink + 1);   // TODO: long long -> int로 바꾸는 작업이 필요함
+			for (auto& u : prevIdxList)   // 필수과목과 SubSource 그래프 연결
+				mKspGraph.Add_Directed_Edge(u, mSubSource, 0);
+		}
+	}
+
+
+
+private:   // KspGraph에 일반과목 추가
+	void Add_NormalCourse()
+	{
+		if (mTargetCredit <= 0) return;
+
+		int level = mTargetCredit;
+		auto convVertexNum = [&](int idx, int lev) { return idx + 1 + ((lev - 1) * mNumberOfNormalCourse); };   // idx + 1 = SubSource + (idx - NumberOfEssential)
+
+
+		// SubSource와 일반과목 연결
+		for (int v = mNumberOfEssentialCourse + 1; v < mNumberOfCourse; v++) {   // TODO: Source로부터의 간선 최적화 필요 
+			if (mCourseInfoList[v].first.credit > level) continue;
+			mKspGraph.Add_Directed_Edge(mSubSource, convVertexNum(v, mCourseInfoList[v].first.credit), Get_CourseWeight(v));
+		}
+
+
+		// Sink와 일반과목 연결
+		for (int u = mNumberOfEssentialCourse + 1; u < mNumberOfCourse; u++)   // TODO: Sink로의 간선 최적화 필요 
+			mKspGraph.Add_Directed_Edge(convVertexNum(u, level), mSink, 0);
+
+
+		// 일반 과목끼리 연결
+		for (int lev = 1; lev < level; lev++) {   // TODO: 간선 최적화 필요
+			for (int u = mNumberOfEssentialCourse + 1; u < mNumberOfCourse; u++) {
+				for (int v = u + 1; v < mNumberOfCourse; v++) {
+					if (mCourseConflict[u] & (Bits)1 << (Bits)v) continue;
+					if (lev + mCourseInfoList[v].first.credit > level) continue;
+					mKspGraph.Add_Directed_Edge(convVertexNum(u, lev), convVertexNum(v, lev + mCourseInfoList[v].first.credit), Get_CourseWeight(v));
+				}
+			}
 		}
 	}
 
@@ -113,42 +191,18 @@ private:   // 각 과목마다 충돌되는 과목을 정보를 가지고 있는 배열 구성
 private:   // KspGraph 구성
 	void Construct_KspGraph()
 	{
-		if (mExistEssentialConflict) return;
-		if (mTargetCredit == 0) { mTimeTabList = vector<Bits>{ 0 }; return; }
+		Add_EssentialCourse();   // 필수과목 추가, 예외처리 필수과목으로 1) 목표학점을 달성하는 경우, 2) 목표학점을 초과하는 경우, 3) 그 외
+		Add_NormalCourse();      // 일반과목 추가
 
-		int source = 0, sink = (mNumberOfNormalCourse * mTargetCredit) + 1, level = mTargetCredit;
-		auto convVertexNum = [&](int vNum, int lev) { return vNum + ((lev - 1) * mNumberOfNormalCourse); };
-		function<int(int)> GetCourseNum = [&](int idx) { return idx == source ? 0 : idx == sink ? mNumberOfNormalCourse + 1 : ((idx - 1) % mNumberOfNormalCourse) + 1; };
+		if (mValidInput) {
+			function<int(int)> GetCourseNum = [&](int idx) {
+				if (idx == mSource || idx == mSubSource || idx == mSink) return 0;
+				if (idx <= mNumberOfEssentialCourse) return idx;
+				return (idx - 1 - mSubSource) % mNumberOfNormalCourse + mSubSource;
+			};
 
-
-		// TODO: long long -> int로 바꾸는 작업이 필요함
-
-		mKspGraph.Assign(sink + 1, 2e18, 1e18, 0);   // TODO: Graph의 가중치를 int형으로 바꿨다면 수정해야 함
-
-		// Source와 일반 과목 연결
-		for (int v = 1; v <= mNumberOfNormalCourse; v++) {   // TODO: Source로부터의 간선 최적화 필요 
-			if (mNormalCourseList[v].credit > level) continue;
-			if (!(mCommonConflict & (Bits)1 << (Bits)v)) mKspGraph.Add_Directed_Edge(source, convVertexNum(v, mNormalCourseList[v].credit), Get_CourseWeight(v));
+			mTimeTabList = mKspGraph.Construct_Ksp(mSource, mSink, mKValue, mCourseConflict, GetCourseNum);
 		}
-
-		// Sink와 일반 과목 연결
-		for (int u = 1; u <= mNumberOfNormalCourse; u++)   // TODO: Sink로의 간선 최적화 필요 
-			if (!(mCommonConflict & (Bits)1 << (Bits)u)) mKspGraph.Add_Directed_Edge(convVertexNum(u, level), sink, 0);
-
-		// 일반 과목끼리 연결
-		for (int lev = 1; lev < level; lev++) {   // TODO: 간선 최적화 필요
-			for (int u = 1; u <= mNumberOfNormalCourse; u++) {
-				if (mCommonConflict & (Bits)1 << (Bits)u) continue;
-				for (int v = u + 1; v <= mNumberOfNormalCourse; v++) {
-					if (mCommonConflict & (Bits)1 << (Bits)v) continue;
-					if (mCourseConflict[u] & (Bits)1 << (Bits)v) continue;
-					if (lev + mNormalCourseList[v].credit > level) continue;
-					mKspGraph.Add_Directed_Edge(convVertexNum(u, lev), convVertexNum(v, lev + mNormalCourseList[v].credit), Get_CourseWeight(v));
-				}
-			}
-		}
-
-		mTimeTabList = mKspGraph.Construct_Ksp(source, sink, mKValue, mCourseConflict, GetCourseNum);
 	}
 
 
@@ -156,48 +210,47 @@ private:   // KspGraph 구성
 
 
 public:   // Ksp를 추가로 실행하여 시간표를 생성하고 반환
-	tuple<vector<Course>, vector<vector<Course>>, vector<vector<int>>, GetTimeTabResult> Get_TimeTable(int page)
+	tuple<vector<vector<Course>>, vector<vector<int>>, GetTimeTabResult> Get_TimeTable(int page)
 	{
-		if (page <= 0) return { vector<Course>(), vector<vector<Course>>(), vector<vector<int>>(), GetTimeTabResult::CannotLoadPrev };
-		if (mExistEssentialConflict) return { vector<Course>(), vector<vector<Course>>(), vector<vector<int>>(), GetTimeTabResult::EssentialConflict };
+		if (!mValidInput) return { vector<vector<Course>>(), vector<vector<int>>(), GetTimeTabResult::InvalidInput };
+		if (page <= 0) return { vector<vector<Course>>(), vector<vector<int>>(), GetTimeTabResult::CannotLoadPrev };
 
 
 		// 현재 페이지에 시간표가 없다면 추가로 시간표를 생성
 		if ((int)mTimeTabList.size() <= mKValue * (page - 1)) {
-			int source = 0, sink = (mNumberOfNormalCourse * mTargetCredit) + 1;
-			function<int(int)> GetCourseNum = [&](int idx) { return idx == source ? 0 : idx == sink ? mNumberOfNormalCourse + 1 : ((idx - 1) % mNumberOfNormalCourse) + 1; };
+			function<int(int)> GetCourseNum = [&](int idx) {
+				if (idx == mSource || idx == mSubSource || idx == mSink) return 0;
+				if (idx <= mNumberOfEssentialCourse) return idx;
+				return (idx - 1 - mSubSource) % mNumberOfNormalCourse + mSubSource;
+			};
+
 			for (auto& timeTab : mKspGraph.Additional_Ksp(mKValue, mCourseConflict, GetCourseNum)) mTimeTabList.push_back(timeTab);
 
 			// 추가로 생성된 시간표가 없다면 생성할 수 있는 시간표가 없다고 간주 (첫 호출이였다면 input자체가 잘못됨)
-			if ((int)mTimeTabList.size() <= mKValue * (page - 1)) return { vector<Course>(), vector<vector<Course>>(), vector<vector<int>>(), page == 1 ? GetTimeTabResult::CannotCreateTimeTab : GetTimeTabResult::CannotLoadNext };
+			if ((int)mTimeTabList.size() <= mKValue * (page - 1)) return { vector<vector<Course>>(), vector<vector<int>>(), page == 1 ? GetTimeTabResult::InvalidInput : GetTimeTabResult::CannotLoadNext };
 		}
 
 
 		// 시간표에 포함된 과목 정보를 인접리스트 형태로 반환
 		int begin = mKValue * (page - 1), end = min((int)mTimeTabList.size(), mKValue * page);
-		vector<Course> essentialCourseList;           // 필수과목 (공통)
-		vector<vector<Course>> normalCourseAdjList;   // 일반과목 (시간표별)
-		vector<vector<int>> timeTbCourseLankCount;    // 우선순위 카운팅 (시간표별)
+		vector<vector<Course>> courseAdjList;   // 포함된 과목 (시간표별)
+		vector<vector<int>> lankCount;          // 우선순위 카운팅 (시간표별)
 
-
-		for (int i = 1; i <= mNumberOfEssentialCourse; i++)
-			essentialCourseList.push_back(mEssentialCourseList[i]);
 
 		for (int i = begin; i < end; i++) {
-			normalCourseAdjList.push_back(vector<Course>());
-			timeTbCourseLankCount.push_back(vector<int>(6, 0));
+			courseAdjList.push_back(vector<Course>());
+			lankCount.push_back(vector<int>(6, 0));
 
-			auto& courseList = normalCourseAdjList.back();
-			auto& courseLank = timeTbCourseLankCount.back();
+			auto& courseList = courseAdjList.back();
+			auto& courseLank = lankCount.back();
 
-			courseLank[0] = essentialCourseList.size();
-			for (int j = 1; j <= mNumberOfNormalCourse; j++)
+			for (int j = 1; j < mNumberOfCourse; j++)
 				if (mTimeTabList[i] & (Bits)1 << (Bits)j) {
-					courseList.push_back(mNormalCourseList[j]);
-					courseLank[mNormalCourseLank[j]]++;
+					courseList.push_back(mCourseInfoList[j].first);
+					courseLank[mCourseInfoList[j].second]++;
 				}
 		}
 
-		return { essentialCourseList, normalCourseAdjList, timeTbCourseLankCount, GetTimeTabResult::LoadSuccessfully };
+		return { courseAdjList, lankCount, GetTimeTabResult::LoadSuccessfully };
 	}
 };

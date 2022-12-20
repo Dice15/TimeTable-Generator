@@ -25,11 +25,11 @@ namespace TimeTableGenerator {
 	{
 	public:
 		TimeTabForm() { InitializeComponent(); }
-		TimeTabForm(int targetCredit, vector<Course>& essnCourseList, vector<Course>& normCourseList, vector<int>& nomCourseLank)
+		TimeTabForm(int targetCredit, int numberOfEssentialCourse, int numberOfNoramlCourse, vector<pair<Course, int>>& courseInfoList)
 		{
 			isInitializing = true;
 			InitializeComponent();
-			InitialzerMembers(targetCredit, essnCourseList, normCourseList, nomCourseLank);
+			InitialzerMembers(targetCredit, numberOfEssentialCourse, numberOfNoramlCourse, courseInfoList);
 		}
 
 	protected:
@@ -558,11 +558,11 @@ namespace TimeTableGenerator {
 
 
 	private:
-		System::Void InitialzerMembers(int targetCredit, vector<Course>& essnCourseList, vector<Course>& normCourseList, vector<int>& nomCourseLank) {
+		System::Void InitialzerMembers(int targetCredit, int numberOfEssentialCourse, int numberOfNoramlCourse, vector<pair<Course, int>>& courseInfoList) {
 			isInitializing = true;
 
 			// 멤버 초기화
-			mGenerator = new TimeTabGenerator(kValue, targetCredit, essnCourseList, normCourseList, nomCourseLank);
+			mGenerator = new TimeTabGenerator(kValue, targetCredit, numberOfEssentialCourse, numberOfNoramlCourse, courseInfoList);
 			mCourseOfTimeTab = new vector<vector<Course>>();
 
 			mColumnList = gcnew List<TextBox^>();
@@ -628,8 +628,8 @@ namespace TimeTableGenerator {
 			isPageLoading = true;
 			mPageIndex += (int)pageMove;
 
-			auto [essnCourseList, normCourseAdjList, timeTbCourseLankCount, resultMessage] = mGenerator->Get_TimeTable(mPageIndex);
-			int timeTabCnt = normCourseAdjList.size();
+			auto [courseAdjList, lankCount, resultMessage] = mGenerator->Get_TimeTable(mPageIndex);
+			int timeTabCnt = courseAdjList.size();
 
 			switch (resultMessage)
 			{
@@ -644,9 +644,8 @@ namespace TimeTableGenerator {
 					if (i < timeTabCnt) {
 						mCourseOfTimeTab->push_back(vector<Course>());
 						mColumnList[i]->Text = "시간표 " + (kValue * (mPageIndex - 1) + i + 1).ToString();
-						for (auto& course : essnCourseList) { mCourseOfTimeTab->back().push_back(course); AddCourse(mTimeTabList[i], course); }
-						for (auto& course : normCourseAdjList[i]) { mCourseOfTimeTab->back().push_back(course); AddCourse(mTimeTabList[i], course); }
-						CountCourseLank(mCourseLankCountL[i], mCourseLankCountR[i], timeTbCourseLankCount[i]);
+						for (auto& course : courseAdjList[i]) { mCourseOfTimeTab->back().push_back(course); AddCourse(mTimeTabList[i], course); }
+						CountCourseLank(mCourseLankCountL[i], mCourseLankCountR[i], lankCount[i]);
 					}
 				}
 				tbPageNum->Text = "Page " + mPageIndex.ToString();
@@ -662,12 +661,7 @@ namespace TimeTableGenerator {
 				mPageIndex -= (int)pageMove;
 				break;
 
-			case TimeTabGenerator::EssentialConflict:
-				MessageBox::Show("잘못된 Input 입니다 (필수과목 사이에서 시간 충돌이 존재합니다)");
-				mPageIndex -= (int)pageMove;
-				break;
-
-			case TimeTabGenerator::CannotCreateTimeTab:
+			case TimeTabGenerator::InvalidInput:
 				MessageBox::Show("해당 Input으로 시간표를 생성할 수 없습니다");
 				mPageIndex -= (int)pageMove;
 				break;
