@@ -30,6 +30,7 @@ namespace TimeTableGenerator {
 			isInitializing = true;
 			InitializeComponent();
 			InitialzerMembers(targetCredit, numberOfEssentialCourse, numberOfNoramlCourse, courseInfoList);
+			isInitializing = false;
 		}
 
 	protected:
@@ -520,15 +521,13 @@ namespace TimeTableGenerator {
 			this->Controls->Add(this->btPrev);
 			this->Name = L"TimeTabForm";
 			this->Text = L"시간표";
+			this->Load += gcnew System::EventHandler(this, &TimeTabForm::TimeTabForm_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
 	private:
-		using Bits = long long;
-		using TimeTab = Bits;
-
 		const int kValue = 5;
 		bool isInitializing = true;
 		bool isPageLoading = false;
@@ -559,7 +558,6 @@ namespace TimeTableGenerator {
 
 	private:
 		System::Void InitialzerMembers(int targetCredit, int numberOfEssentialCourse, int numberOfNoramlCourse, vector<pair<Course, int>>& courseInfoList) {
-			isInitializing = true;
 
 			// 멤버 초기화
 			mGenerator = new TimeTabGenerator(kValue, targetCredit, numberOfEssentialCourse, numberOfNoramlCourse, courseInfoList);
@@ -600,12 +598,14 @@ namespace TimeTableGenerator {
 			mCourseLnakLabel->Add("  ***");
 			mCourseLnakLabel->Add("   **");
 			mCourseLnakLabel->Add("    *");
+		}
 
-			// 페이지 로드
+
+
+	private:   // 폼이 로드와 함께 페이지 로드
+		System::Void TimeTabForm_Load(System::Object^ sender, System::EventArgs^ e) {
 			mPageIndex = 1;
 			LoadPage(PageMove::Hold);
-
-			isInitializing = false;
 		}
 
 
@@ -664,6 +664,7 @@ namespace TimeTableGenerator {
 			case TimeTabGenerator::InvalidInput:
 				MessageBox::Show("해당 Input으로 시간표를 생성할 수 없습니다");
 				mPageIndex -= (int)pageMove;
+				this->Close();
 				break;
 
 			default:

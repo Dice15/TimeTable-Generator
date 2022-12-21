@@ -22,7 +22,12 @@ namespace TimeTableGenerator {
 	public ref class MainForm : public System::Windows::Forms::Form
 	{
 	public:
-		MainForm(void) { InitializeComponent(); }
+		MainForm(void) {
+			isInitializing = true;
+			InitializeComponent();
+			InitialzerMembers();
+			isInitializing = false;
+		}
 
 	protected:
 		~MainForm()
@@ -61,6 +66,21 @@ namespace TimeTableGenerator {
 	private: System::Windows::Forms::Button^ btIdxSelect;
 	private: System::Windows::Forms::TextBox^ tbIDSelect;
 	private: System::Windows::Forms::Button^ btIDSelect;
+	private: System::Windows::Forms::Label^ lbHoliday;
+	private: System::Windows::Forms::CheckBox^ cbHoliday0;
+
+	private: System::Windows::Forms::CheckBox^ cbHoliday1;
+
+	private: System::Windows::Forms::CheckBox^ cbHoliday2;
+	private: System::Windows::Forms::CheckBox^ cbHoliday3;
+	private: System::Windows::Forms::CheckBox^ cbHoliday4;
+
+
+
+
+
+
+
 
 
 
@@ -109,6 +129,12 @@ namespace TimeTableGenerator {
 			this->btIdxSelect = (gcnew System::Windows::Forms::Button());
 			this->tbIDSelect = (gcnew System::Windows::Forms::TextBox());
 			this->btIDSelect = (gcnew System::Windows::Forms::Button());
+			this->lbHoliday = (gcnew System::Windows::Forms::Label());
+			this->cbHoliday0 = (gcnew System::Windows::Forms::CheckBox());
+			this->cbHoliday1 = (gcnew System::Windows::Forms::CheckBox());
+			this->cbHoliday2 = (gcnew System::Windows::Forms::CheckBox());
+			this->cbHoliday3 = (gcnew System::Windows::Forms::CheckBox());
+			this->cbHoliday4 = (gcnew System::Windows::Forms::CheckBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->gvCourseList))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->gvSelectCourse))->BeginInit();
 			this->SuspendLayout();
@@ -117,7 +143,7 @@ namespace TimeTableGenerator {
 			// 
 			this->btCallGenerator->Font = (gcnew System::Drawing::Font(L"굴림", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
-			this->btCallGenerator->Location = System::Drawing::Point(922, 12);
+			this->btCallGenerator->Location = System::Drawing::Point(920, 12);
 			this->btCallGenerator->Name = L"btCallGenerator";
 			this->btCallGenerator->Size = System::Drawing::Size(453, 51);
 			this->btCallGenerator->TabIndex = 1;
@@ -135,13 +161,13 @@ namespace TimeTableGenerator {
 				this->Column0,
 					this->Column1, this->Column2, this->Column3, this->Column4, this->Column5, this->Column6, this->Column7, this->Column8
 			});
-			this->gvCourseList->Location = System::Drawing::Point(12, 68);
+			this->gvCourseList->Location = System::Drawing::Point(10, 68);
 			this->gvCourseList->MultiSelect = false;
 			this->gvCourseList->Name = L"gvCourseList";
 			this->gvCourseList->ReadOnly = true;
 			this->gvCourseList->RowHeadersWidthSizeMode = System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::DisableResizing;
 			this->gvCourseList->RowTemplate->Height = 23;
-			this->gvCourseList->Size = System::Drawing::Size(895, 570);
+			this->gvCourseList->Size = System::Drawing::Size(895, 610);
 			this->gvCourseList->TabIndex = 2;
 			this->gvCourseList->RowHeaderMouseDoubleClick += gcnew System::Windows::Forms::DataGridViewCellMouseEventHandler(this, &MainForm::gridView_courseList_RowHeaderMouseDoubleClick);
 			// 
@@ -220,7 +246,7 @@ namespace TimeTableGenerator {
 				this->SelectList_Column1,
 					this->SelectList_Column2, this->SelectList_Column3, this->SelectList_Column4
 			});
-			this->gvSelectCourse->Location = System::Drawing::Point(922, 99);
+			this->gvSelectCourse->Location = System::Drawing::Point(919, 139);
 			this->gvSelectCourse->MultiSelect = false;
 			this->gvSelectCourse->Name = L"gvSelectCourse";
 			this->gvSelectCourse->RowHeadersWidthSizeMode = System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::DisableResizing;
@@ -273,7 +299,7 @@ namespace TimeTableGenerator {
 				L"0", L"1", L"2", L"3", L"4", L"5", L"6",
 					L"7", L"8", L"9", L"10", L"11", L"12", L"13", L"14", L"15", L"16", L"17", L"18", L"19", L"20", L"21", L"22", L"23", L"24"
 			});
-			this->cbTargetCredit->Location = System::Drawing::Point(1120, 68);
+			this->cbTargetCredit->Location = System::Drawing::Point(1118, 72);
 			this->cbTargetCredit->Name = L"cbTargetCredit";
 			this->cbTargetCredit->Size = System::Drawing::Size(213, 24);
 			this->cbTargetCredit->TabIndex = 4;
@@ -283,7 +309,7 @@ namespace TimeTableGenerator {
 			this->lbTargetCredit->AutoSize = true;
 			this->lbTargetCredit->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
-			this->lbTargetCredit->Location = System::Drawing::Point(979, 73);
+			this->lbTargetCredit->Location = System::Drawing::Point(977, 77);
 			this->lbTargetCredit->Name = L"lbTargetCredit";
 			this->lbTargetCredit->Size = System::Drawing::Size(113, 16);
 			this->lbTargetCredit->TabIndex = 5;
@@ -294,7 +320,7 @@ namespace TimeTableGenerator {
 			this->lbIdxSelect->AutoSize = true;
 			this->lbIdxSelect->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
-			this->lbIdxSelect->Location = System::Drawing::Point(55, 28);
+			this->lbIdxSelect->Location = System::Drawing::Point(53, 28);
 			this->lbIdxSelect->Name = L"lbIdxSelect";
 			this->lbIdxSelect->Size = System::Drawing::Size(118, 16);
 			this->lbIdxSelect->TabIndex = 6;
@@ -305,7 +331,7 @@ namespace TimeTableGenerator {
 			this->lbIDSelect->AutoSize = true;
 			this->lbIDSelect->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
-			this->lbIDSelect->Location = System::Drawing::Point(452, 28);
+			this->lbIDSelect->Location = System::Drawing::Point(450, 28);
 			this->lbIDSelect->Name = L"lbIDSelect";
 			this->lbIDSelect->Size = System::Drawing::Size(161, 16);
 			this->lbIDSelect->TabIndex = 7;
@@ -316,7 +342,7 @@ namespace TimeTableGenerator {
 			this->tbIdxSelect->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbIdxSelect->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
-			this->tbIdxSelect->Location = System::Drawing::Point(179, 23);
+			this->tbIdxSelect->Location = System::Drawing::Point(177, 23);
 			this->tbIdxSelect->Name = L"tbIdxSelect";
 			this->tbIdxSelect->Size = System::Drawing::Size(145, 26);
 			this->tbIdxSelect->TabIndex = 8;
@@ -326,7 +352,7 @@ namespace TimeTableGenerator {
 			// 
 			this->btIdxSelect->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
-			this->btIdxSelect->Location = System::Drawing::Point(330, 21);
+			this->btIdxSelect->Location = System::Drawing::Point(328, 21);
 			this->btIdxSelect->Name = L"btIdxSelect";
 			this->btIdxSelect->Size = System::Drawing::Size(80, 30);
 			this->btIdxSelect->TabIndex = 9;
@@ -340,7 +366,7 @@ namespace TimeTableGenerator {
 			this->tbIDSelect->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbIDSelect->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
-			this->tbIDSelect->Location = System::Drawing::Point(619, 23);
+			this->tbIDSelect->Location = System::Drawing::Point(617, 23);
 			this->tbIDSelect->Name = L"tbIDSelect";
 			this->tbIDSelect->ReadOnly = true;
 			this->tbIDSelect->Size = System::Drawing::Size(145, 26);
@@ -351,18 +377,85 @@ namespace TimeTableGenerator {
 			// 
 			this->btIDSelect->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
-			this->btIDSelect->Location = System::Drawing::Point(770, 21);
+			this->btIDSelect->Location = System::Drawing::Point(768, 21);
 			this->btIDSelect->Name = L"btIDSelect";
 			this->btIDSelect->Size = System::Drawing::Size(80, 30);
 			this->btIDSelect->TabIndex = 11;
 			this->btIDSelect->Text = L"추가";
 			this->btIDSelect->UseVisualStyleBackColor = true;
 			// 
+			// lbHoliday
+			// 
+			this->lbHoliday->AutoSize = true;
+			this->lbHoliday->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(129)));
+			this->lbHoliday->Location = System::Drawing::Point(977, 111);
+			this->lbHoliday->Name = L"lbHoliday";
+			this->lbHoliday->Size = System::Drawing::Size(113, 16);
+			this->lbHoliday->TabIndex = 12;
+			this->lbHoliday->Text = L"공강 요일 선택";
+			// 
+			// cbHoliday0
+			// 
+			this->cbHoliday0->AutoSize = true;
+			this->cbHoliday0->Location = System::Drawing::Point(1118, 111);
+			this->cbHoliday0->Name = L"cbHoliday0";
+			this->cbHoliday0->Size = System::Drawing::Size(36, 16);
+			this->cbHoliday0->TabIndex = 13;
+			this->cbHoliday0->Text = L"월";
+			this->cbHoliday0->UseVisualStyleBackColor = true;
+			// 
+			// cbHoliday1
+			// 
+			this->cbHoliday1->AutoSize = true;
+			this->cbHoliday1->Location = System::Drawing::Point(1164, 111);
+			this->cbHoliday1->Name = L"cbHoliday1";
+			this->cbHoliday1->Size = System::Drawing::Size(36, 16);
+			this->cbHoliday1->TabIndex = 14;
+			this->cbHoliday1->Text = L"화";
+			this->cbHoliday1->UseVisualStyleBackColor = true;
+			// 
+			// cbHoliday2
+			// 
+			this->cbHoliday2->AutoSize = true;
+			this->cbHoliday2->Location = System::Drawing::Point(1210, 111);
+			this->cbHoliday2->Name = L"cbHoliday2";
+			this->cbHoliday2->Size = System::Drawing::Size(36, 16);
+			this->cbHoliday2->TabIndex = 15;
+			this->cbHoliday2->Text = L"수";
+			this->cbHoliday2->UseVisualStyleBackColor = true;
+			// 
+			// cbHoliday3
+			// 
+			this->cbHoliday3->AutoSize = true;
+			this->cbHoliday3->Location = System::Drawing::Point(1256, 111);
+			this->cbHoliday3->Name = L"cbHoliday3";
+			this->cbHoliday3->Size = System::Drawing::Size(36, 16);
+			this->cbHoliday3->TabIndex = 16;
+			this->cbHoliday3->Text = L"목";
+			this->cbHoliday3->UseVisualStyleBackColor = true;
+			// 
+			// cbHoliday4
+			// 
+			this->cbHoliday4->AutoSize = true;
+			this->cbHoliday4->Location = System::Drawing::Point(1302, 111);
+			this->cbHoliday4->Name = L"cbHoliday4";
+			this->cbHoliday4->Size = System::Drawing::Size(36, 16);
+			this->cbHoliday4->TabIndex = 17;
+			this->cbHoliday4->Text = L"금";
+			this->cbHoliday4->UseVisualStyleBackColor = true;
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(7, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1390, 651);
+			this->ClientSize = System::Drawing::Size(1384, 691);
+			this->Controls->Add(this->cbHoliday4);
+			this->Controls->Add(this->cbHoliday3);
+			this->Controls->Add(this->cbHoliday2);
+			this->Controls->Add(this->cbHoliday1);
+			this->Controls->Add(this->cbHoliday0);
+			this->Controls->Add(this->lbHoliday);
 			this->Controls->Add(this->btIDSelect);
 			this->Controls->Add(this->tbIDSelect);
 			this->Controls->Add(this->btIdxSelect);
@@ -376,7 +469,6 @@ namespace TimeTableGenerator {
 			this->Controls->Add(this->btCallGenerator);
 			this->Name = L"MainForm";
 			this->Text = L"시간표 생성기";
-			this->Load += gcnew System::EventHandler(this, &MainForm::MainForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->gvCourseList))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->gvSelectCourse))->EndInit();
 			this->ResumeLayout(false);
@@ -397,17 +489,20 @@ namespace TimeTableGenerator {
 
 
 	private:
-		List<bool>^ isSelectedCourse;
-
-
-
-	private: // 실행 시 초기화
 		bool isInitializing = true;
-		System::Void MainForm_Load(System::Object^ sender, System::EventArgs^ e) {
+		bool isEnd_CellStateChangedEvent = true;
+
+		List<bool>^ isSelectedCourse;
+		Dictionary<String^, CheckBox^>^ mCheckHoliday;
+
+
+
+	private:
+		System::Void InitialzerMembers() {
 			Init_gvCourseList();
 			Init_gvSelectCourse();
 			Init_cbTargetCredit();
-			isInitializing = false;
+			Init_cbHoliday();
 		}
 
 		System::Void Init_gvCourseList() {
@@ -445,6 +540,16 @@ namespace TimeTableGenerator {
 		System::Void Init_cbTargetCredit() {
 			cbTargetCredit->SelectedIndex = 0;
 		}
+
+		System::Void Init_cbHoliday() {
+			mCheckHoliday = gcnew Dictionary<String^, CheckBox^>();
+			mCheckHoliday->Add("월", cbHoliday0);
+			mCheckHoliday->Add("화", cbHoliday1);
+			mCheckHoliday->Add("수", cbHoliday2);
+			mCheckHoliday->Add("목", cbHoliday3);
+			mCheckHoliday->Add("금", cbHoliday4);
+		}
+
 
 
 
@@ -498,9 +603,9 @@ namespace TimeTableGenerator {
 
 
 	private: // gvSelectCourse에서 과목의 우선순위를 변경했을 때, 발생하는 정렬 이벤트
-		bool isEnd_CellStateChangedEvent = true;
 		System::Void gvSelectCourse_Sorted(System::Object^ sender, System::EventArgs^ e) {
 			if (isInitializing) return;
+			gvSelectCourse_Coloring();
 			isEnd_CellStateChangedEvent = true;
 		}
 
@@ -510,9 +615,19 @@ namespace TimeTableGenerator {
 			else isEnd_CellStateChangedEvent = false;
 		}
 
+		System::Void gvSelectCourse_Coloring() {
+			for (int i = 0; i < gvSelectCourse->RowCount; i++) {
+				int cosLank = ToStdString(gvSelectCourse->Rows[i]->Cells[4]->Value->ToString())[0] - 48;
+
+				for (int j = 0; j < gvSelectCourse->Rows[i]->Cells->Count - 1; j++)
+					gvSelectCourse->Rows[i]->Cells[j]->Style->BackColor = cosLank == 0 ? Color::LightSalmon : Color::White;
+			}
+		}
+
 
 
 	private: // 현재의 세팅을 저장하고 시간표 생성하는 이벤트
+
 		System::Void btCallGenerator_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 
 			auto targetCredit = stoi(ToStdString(cbTargetCredit->Text));
@@ -523,14 +638,20 @@ namespace TimeTableGenerator {
 			auto numberOfNoramlCourse = 0;
 			auto courseInfoList = vector<pair<Course, int>>(1);
 
+
 			for (int i = 0; i < gvSelectCourse->RowCount; i++) {
 				int cosIdx = stoi(ToStdString(gvSelectCourse->Rows[i]->Cells[0]->Value->ToString()));
 				int cosLank = ToStdString(gvSelectCourse->Rows[i]->Cells[4]->Value->ToString())[0] - 48;
+				bool isHoliday = false;
 
-				if (cosLank == 0) numberOfEssentialCourse++;
-				else numberOfNoramlCourse++;
+				for(auto& time : allCourseList[cosIdx].times)   // 선택한 과목이 공강과 겹치는지 확인
+					if (mCheckHoliday[ToGcString(time.day)]->Checked) { isHoliday = true; break; }
 
-				courseInfoList.push_back({ allCourseList[cosIdx], cosLank });
+				if (!isHoliday) {   // 공강과 겹치지 않는 과목 추가
+					if (cosLank == 0) numberOfEssentialCourse++;
+					else numberOfNoramlCourse++;
+					courseInfoList.push_back({ allCourseList[cosIdx], cosLank });
+				}
 			}
 
 			auto timeTabForm = gcnew TimeTabForm(targetCredit, numberOfEssentialCourse, numberOfNoramlCourse, courseInfoList);

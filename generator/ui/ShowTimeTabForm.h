@@ -214,17 +214,16 @@ namespace TimeTableGenerator {
 		}
 
 		Color CouseNumToColor(int courseNum) {	// 강의를 나타내는 블록의 색을 결정
-			if (courseNum == 0) return Color::Salmon;
-			if (courseNum == 1) return Color::Orange;
-			if (courseNum == 2) return Color::Goldenrod;
-			if (courseNum == 3) return Color::YellowGreen;
-			if (courseNum == 4) return Color::MediumSeaGreen;
-			if (courseNum == 5) return Color::ForestGreen;
-			if (courseNum == 6) return Color::CornflowerBlue;
-			if (courseNum == 7) return Color::SlateBlue;
-			if (courseNum == 8) return Color::MediumOrchid;
-			if (courseNum == 9) return Color::MediumPurple;
-			if (courseNum == 10) return Color::DarkMagenta;
+			courseNum %= 9;
+			if (courseNum == 0) return Color::FromArgb(240, 134, 118);
+			if (courseNum == 1) return Color::FromArgb(251, 170, 104);
+			if (courseNum == 2) return Color::FromArgb(236, 195, 105);
+			if (courseNum == 3) return Color::FromArgb(167, 202, 112);
+			if (courseNum == 4) return Color::FromArgb(125, 209, 193);
+			if (courseNum == 5) return Color::FromArgb(120, 202, 136);
+			if (courseNum == 6) return Color::FromArgb(122, 165, 233);
+			if (courseNum == 7) return Color::FromArgb(159, 134, 225);
+			if (courseNum == 8) return Color::FromArgb(211, 151, 237);
 			return Color::Moccasin;
 		}
 
