@@ -1,5 +1,6 @@
-#pragma once
 
+#pragma once
+#include "./core/C++Header_STL.h"
 #include "./core/Course.h"
 #include "./generator//ui/TimeTabForm.h"
 
@@ -23,10 +24,10 @@ namespace TimeTableGenerator {
 	{
 	public:
 		MainForm(void) {
-			isInitializing = true;
+			mProcessCheck_Initializing = true;
 			InitializeComponent();
 			InitialzerMembers();
-			isInitializing = false;
+			mProcessCheck_Initializing = false;
 		}
 
 	protected:
@@ -54,10 +55,10 @@ namespace TimeTableGenerator {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column6;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column7;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column8;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ SelectList_Column1;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ SelectList_Column2;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ SelectList_Column3;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ SelectList_Column4;
+
+
+
+
 	private: System::Windows::Forms::Label^ lbIdxSelect;
 	private: System::Windows::Forms::Label^ lbIDSelect;
 
@@ -66,14 +67,77 @@ namespace TimeTableGenerator {
 	private: System::Windows::Forms::Button^ btIdxSelect;
 	private: System::Windows::Forms::TextBox^ tbIDSelect;
 	private: System::Windows::Forms::Button^ btIDSelect;
-	private: System::Windows::Forms::Label^ lbHoliday;
-	private: System::Windows::Forms::CheckBox^ cbHoliday0;
+	private: System::Windows::Forms::Label^ lbRestDay;
+	private: System::Windows::Forms::CheckBox^ cbRestDay0;
+	private: System::Windows::Forms::CheckBox^ cbRestDay1;
+	private: System::Windows::Forms::CheckBox^ cbRestDay2;
+	private: System::Windows::Forms::CheckBox^ cbRestDay3;
+	private: System::Windows::Forms::CheckBox^ cbRestDay4;
 
-	private: System::Windows::Forms::CheckBox^ cbHoliday1;
 
-	private: System::Windows::Forms::CheckBox^ cbHoliday2;
-	private: System::Windows::Forms::CheckBox^ cbHoliday3;
-	private: System::Windows::Forms::CheckBox^ cbHoliday4;
+
+
+
+
+
+
+
+
+
+
+
+
+	private: System::Windows::Forms::CheckBox^ cbSetRangeCredit;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ SelectList_Column0;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ SelectList_Column1;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ SelectList_Column2;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ SelectList_Column3;
+	private: System::Windows::Forms::CheckBox^ cbRestDay5;
+	private: System::Windows::Forms::Label^ lbRestTime;
+	private: System::Windows::Forms::ComboBox^ cbRestTimeDay;
+	private: System::Windows::Forms::ComboBox^ cbRestTimeStart;
+	private: System::Windows::Forms::ComboBox^ cbRestTimeEnd;
+	private: System::Windows::Forms::Button^ btRestTimeAdd;
+
+
+
+
+
+
+
+
+	private: System::Windows::Forms::Label^ lbRestTimeStoE;
+	private: System::Windows::Forms::DataGridView^ gvRestTimeList;
+
+
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn1;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -117,10 +181,10 @@ namespace TimeTableGenerator {
 			this->Column7 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Column8 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->gvSelectCourse = (gcnew System::Windows::Forms::DataGridView());
+			this->SelectList_Column0 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->SelectList_Column1 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->SelectList_Column2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->SelectList_Column3 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->SelectList_Column4 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->cbTargetCredit = (gcnew System::Windows::Forms::ComboBox());
 			this->lbTargetCredit = (gcnew System::Windows::Forms::Label());
 			this->lbIdxSelect = (gcnew System::Windows::Forms::Label());
@@ -129,14 +193,26 @@ namespace TimeTableGenerator {
 			this->btIdxSelect = (gcnew System::Windows::Forms::Button());
 			this->tbIDSelect = (gcnew System::Windows::Forms::TextBox());
 			this->btIDSelect = (gcnew System::Windows::Forms::Button());
-			this->lbHoliday = (gcnew System::Windows::Forms::Label());
-			this->cbHoliday0 = (gcnew System::Windows::Forms::CheckBox());
-			this->cbHoliday1 = (gcnew System::Windows::Forms::CheckBox());
-			this->cbHoliday2 = (gcnew System::Windows::Forms::CheckBox());
-			this->cbHoliday3 = (gcnew System::Windows::Forms::CheckBox());
-			this->cbHoliday4 = (gcnew System::Windows::Forms::CheckBox());
+			this->lbRestDay = (gcnew System::Windows::Forms::Label());
+			this->cbRestDay0 = (gcnew System::Windows::Forms::CheckBox());
+			this->cbRestDay1 = (gcnew System::Windows::Forms::CheckBox());
+			this->cbRestDay2 = (gcnew System::Windows::Forms::CheckBox());
+			this->cbRestDay3 = (gcnew System::Windows::Forms::CheckBox());
+			this->cbRestDay4 = (gcnew System::Windows::Forms::CheckBox());
+			this->cbSetRangeCredit = (gcnew System::Windows::Forms::CheckBox());
+			this->cbRestDay5 = (gcnew System::Windows::Forms::CheckBox());
+			this->lbRestTime = (gcnew System::Windows::Forms::Label());
+			this->cbRestTimeDay = (gcnew System::Windows::Forms::ComboBox());
+			this->cbRestTimeStart = (gcnew System::Windows::Forms::ComboBox());
+			this->cbRestTimeEnd = (gcnew System::Windows::Forms::ComboBox());
+			this->btRestTimeAdd = (gcnew System::Windows::Forms::Button());
+			this->lbRestTimeStoE = (gcnew System::Windows::Forms::Label());
+			this->gvRestTimeList = (gcnew System::Windows::Forms::DataGridView());
+			this->dataGridViewTextBoxColumn1 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->dataGridViewTextBoxColumn2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->gvCourseList))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->gvSelectCourse))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->gvRestTimeList))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// btCallGenerator
@@ -167,7 +243,7 @@ namespace TimeTableGenerator {
 			this->gvCourseList->ReadOnly = true;
 			this->gvCourseList->RowHeadersWidthSizeMode = System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::DisableResizing;
 			this->gvCourseList->RowTemplate->Height = 23;
-			this->gvCourseList->Size = System::Drawing::Size(895, 610);
+			this->gvCourseList->Size = System::Drawing::Size(895, 821);
 			this->gvCourseList->TabIndex = 2;
 			this->gvCourseList->RowHeaderMouseDoubleClick += gcnew System::Windows::Forms::DataGridViewCellMouseEventHandler(this, &MainForm::gridView_courseList_RowHeaderMouseDoubleClick);
 			// 
@@ -243,51 +319,47 @@ namespace TimeTableGenerator {
 			this->gvSelectCourse->AllowUserToResizeRows = false;
 			this->gvSelectCourse->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::DisableResizing;
 			this->gvSelectCourse->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
-				this->SelectList_Column1,
-					this->SelectList_Column2, this->SelectList_Column3, this->SelectList_Column4
+				this->SelectList_Column0,
+					this->SelectList_Column1, this->SelectList_Column2, this->SelectList_Column3
 			});
-			this->gvSelectCourse->Location = System::Drawing::Point(919, 139);
+			this->gvSelectCourse->Location = System::Drawing::Point(920, 350);
 			this->gvSelectCourse->MultiSelect = false;
 			this->gvSelectCourse->Name = L"gvSelectCourse";
 			this->gvSelectCourse->RowHeadersWidthSizeMode = System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::DisableResizing;
 			this->gvSelectCourse->RowTemplate->Height = 23;
-			this->gvSelectCourse->Size = System::Drawing::Size(453, 539);
+			this->gvSelectCourse->Size = System::Drawing::Size(454, 539);
 			this->gvSelectCourse->TabIndex = 3;
 			this->gvSelectCourse->CellValueChanged += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::gvSelectCourse_CellValueChanged);
 			this->gvSelectCourse->RowHeaderMouseDoubleClick += gcnew System::Windows::Forms::DataGridViewCellMouseEventHandler(this, &MainForm::gvSelectCourse_RowHeaderMouseDoubleClick);
 			this->gvSelectCourse->RowsAdded += gcnew System::Windows::Forms::DataGridViewRowsAddedEventHandler(this, &MainForm::gvSelectCourse_RowsAdded);
 			this->gvSelectCourse->RowsRemoved += gcnew System::Windows::Forms::DataGridViewRowsRemovedEventHandler(this, &MainForm::gvSelectCourse_RowsRemoved);
-			this->gvSelectCourse->Sorted += gcnew System::EventHandler(this, &MainForm::gvSelectCourse_Sorted);
+			// 
+			// SelectList_Column0
+			// 
+			this->SelectList_Column0->HeaderText = L"num";
+			this->SelectList_Column0->Name = L"SelectList_Column0";
+			this->SelectList_Column0->Width = 35;
 			// 
 			// SelectList_Column1
 			// 
-			this->SelectList_Column1->HeaderText = L"Idx";
+			this->SelectList_Column1->HeaderText = L"학수번호";
 			this->SelectList_Column1->Name = L"SelectList_Column1";
 			this->SelectList_Column1->ReadOnly = true;
-			this->SelectList_Column1->Resizable = System::Windows::Forms::DataGridViewTriState::False;
 			this->SelectList_Column1->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::NotSortable;
-			this->SelectList_Column1->Width = 35;
 			// 
 			// SelectList_Column2
 			// 
-			this->SelectList_Column2->HeaderText = L"학수번호";
+			this->SelectList_Column2->HeaderText = L"교과목명";
 			this->SelectList_Column2->Name = L"SelectList_Column2";
 			this->SelectList_Column2->ReadOnly = true;
 			this->SelectList_Column2->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::NotSortable;
 			// 
 			// SelectList_Column3
 			// 
-			this->SelectList_Column3->HeaderText = L"교과목명";
+			this->SelectList_Column3->HeaderText = L"담당교수";
 			this->SelectList_Column3->Name = L"SelectList_Column3";
 			this->SelectList_Column3->ReadOnly = true;
 			this->SelectList_Column3->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::NotSortable;
-			// 
-			// SelectList_Column4
-			// 
-			this->SelectList_Column4->HeaderText = L"담당교수";
-			this->SelectList_Column4->Name = L"SelectList_Column4";
-			this->SelectList_Column4->ReadOnly = true;
-			this->SelectList_Column4->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::NotSortable;
 			// 
 			// cbTargetCredit
 			// 
@@ -299,9 +371,9 @@ namespace TimeTableGenerator {
 				L"0", L"1", L"2", L"3", L"4", L"5", L"6",
 					L"7", L"8", L"9", L"10", L"11", L"12", L"13", L"14", L"15", L"16", L"17", L"18", L"19", L"20", L"21", L"22", L"23", L"24"
 			});
-			this->cbTargetCredit->Location = System::Drawing::Point(1118, 72);
+			this->cbTargetCredit->Location = System::Drawing::Point(1014, 74);
 			this->cbTargetCredit->Name = L"cbTargetCredit";
-			this->cbTargetCredit->Size = System::Drawing::Size(213, 24);
+			this->cbTargetCredit->Size = System::Drawing::Size(257, 24);
 			this->cbTargetCredit->TabIndex = 4;
 			// 
 			// lbTargetCredit
@@ -309,11 +381,11 @@ namespace TimeTableGenerator {
 			this->lbTargetCredit->AutoSize = true;
 			this->lbTargetCredit->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
-			this->lbTargetCredit->Location = System::Drawing::Point(977, 77);
+			this->lbTargetCredit->Location = System::Drawing::Point(932, 80);
 			this->lbTargetCredit->Name = L"lbTargetCredit";
-			this->lbTargetCredit->Size = System::Drawing::Size(113, 16);
+			this->lbTargetCredit->Size = System::Drawing::Size(76, 16);
 			this->lbTargetCredit->TabIndex = 5;
-			this->lbTargetCredit->Text = L"목표 학점 선택";
+			this->lbTargetCredit->Text = L"목표 학점";
 			// 
 			// lbIdxSelect
 			// 
@@ -364,6 +436,7 @@ namespace TimeTableGenerator {
 			// 
 			this->tbIDSelect->BackColor = System::Drawing::SystemColors::ControlLightLight;
 			this->tbIDSelect->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->tbIDSelect->Enabled = false;
 			this->tbIDSelect->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
 			this->tbIDSelect->Location = System::Drawing::Point(617, 23);
@@ -384,78 +457,217 @@ namespace TimeTableGenerator {
 			this->btIDSelect->Text = L"추가";
 			this->btIDSelect->UseVisualStyleBackColor = true;
 			// 
-			// lbHoliday
+			// lbRestDay
 			// 
-			this->lbHoliday->AutoSize = true;
-			this->lbHoliday->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->lbRestDay->AutoSize = true;
+			this->lbRestDay->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(129)));
-			this->lbHoliday->Location = System::Drawing::Point(977, 111);
-			this->lbHoliday->Name = L"lbHoliday";
-			this->lbHoliday->Size = System::Drawing::Size(113, 16);
-			this->lbHoliday->TabIndex = 12;
-			this->lbHoliday->Text = L"공강 요일 선택";
+			this->lbRestDay->Location = System::Drawing::Point(932, 115);
+			this->lbRestDay->Name = L"lbRestDay";
+			this->lbRestDay->Size = System::Drawing::Size(76, 16);
+			this->lbRestDay->TabIndex = 12;
+			this->lbRestDay->Text = L"요일 공강";
 			// 
-			// cbHoliday0
+			// cbRestDay0
 			// 
-			this->cbHoliday0->AutoSize = true;
-			this->cbHoliday0->Location = System::Drawing::Point(1118, 111);
-			this->cbHoliday0->Name = L"cbHoliday0";
-			this->cbHoliday0->Size = System::Drawing::Size(36, 16);
-			this->cbHoliday0->TabIndex = 13;
-			this->cbHoliday0->Text = L"월";
-			this->cbHoliday0->UseVisualStyleBackColor = true;
+			this->cbRestDay0->AutoSize = true;
+			this->cbRestDay0->Location = System::Drawing::Point(1018, 115);
+			this->cbRestDay0->Name = L"cbRestDay0";
+			this->cbRestDay0->Size = System::Drawing::Size(36, 16);
+			this->cbRestDay0->TabIndex = 13;
+			this->cbRestDay0->Text = L"월";
+			this->cbRestDay0->UseVisualStyleBackColor = true;
+			this->cbRestDay0->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbRestDay0_CheckedChanged);
 			// 
-			// cbHoliday1
+			// cbRestDay1
 			// 
-			this->cbHoliday1->AutoSize = true;
-			this->cbHoliday1->Location = System::Drawing::Point(1164, 111);
-			this->cbHoliday1->Name = L"cbHoliday1";
-			this->cbHoliday1->Size = System::Drawing::Size(36, 16);
-			this->cbHoliday1->TabIndex = 14;
-			this->cbHoliday1->Text = L"화";
-			this->cbHoliday1->UseVisualStyleBackColor = true;
+			this->cbRestDay1->AutoSize = true;
+			this->cbRestDay1->Location = System::Drawing::Point(1070, 115);
+			this->cbRestDay1->Name = L"cbRestDay1";
+			this->cbRestDay1->Size = System::Drawing::Size(36, 16);
+			this->cbRestDay1->TabIndex = 14;
+			this->cbRestDay1->Text = L"화";
+			this->cbRestDay1->UseVisualStyleBackColor = true;
+			this->cbRestDay1->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbRestDay1_CheckedChanged);
 			// 
-			// cbHoliday2
+			// cbRestDay2
 			// 
-			this->cbHoliday2->AutoSize = true;
-			this->cbHoliday2->Location = System::Drawing::Point(1210, 111);
-			this->cbHoliday2->Name = L"cbHoliday2";
-			this->cbHoliday2->Size = System::Drawing::Size(36, 16);
-			this->cbHoliday2->TabIndex = 15;
-			this->cbHoliday2->Text = L"수";
-			this->cbHoliday2->UseVisualStyleBackColor = true;
+			this->cbRestDay2->AutoSize = true;
+			this->cbRestDay2->Location = System::Drawing::Point(1122, 115);
+			this->cbRestDay2->Name = L"cbRestDay2";
+			this->cbRestDay2->Size = System::Drawing::Size(36, 16);
+			this->cbRestDay2->TabIndex = 15;
+			this->cbRestDay2->Text = L"수";
+			this->cbRestDay2->UseVisualStyleBackColor = true;
+			this->cbRestDay2->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbRestDay2_CheckedChanged);
 			// 
-			// cbHoliday3
+			// cbRestDay3
 			// 
-			this->cbHoliday3->AutoSize = true;
-			this->cbHoliday3->Location = System::Drawing::Point(1256, 111);
-			this->cbHoliday3->Name = L"cbHoliday3";
-			this->cbHoliday3->Size = System::Drawing::Size(36, 16);
-			this->cbHoliday3->TabIndex = 16;
-			this->cbHoliday3->Text = L"목";
-			this->cbHoliday3->UseVisualStyleBackColor = true;
+			this->cbRestDay3->AutoSize = true;
+			this->cbRestDay3->Location = System::Drawing::Point(1174, 115);
+			this->cbRestDay3->Name = L"cbRestDay3";
+			this->cbRestDay3->Size = System::Drawing::Size(36, 16);
+			this->cbRestDay3->TabIndex = 16;
+			this->cbRestDay3->Text = L"목";
+			this->cbRestDay3->UseVisualStyleBackColor = true;
+			this->cbRestDay3->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbRestDay3_CheckedChanged);
 			// 
-			// cbHoliday4
+			// cbRestDay4
 			// 
-			this->cbHoliday4->AutoSize = true;
-			this->cbHoliday4->Location = System::Drawing::Point(1302, 111);
-			this->cbHoliday4->Name = L"cbHoliday4";
-			this->cbHoliday4->Size = System::Drawing::Size(36, 16);
-			this->cbHoliday4->TabIndex = 17;
-			this->cbHoliday4->Text = L"금";
-			this->cbHoliday4->UseVisualStyleBackColor = true;
+			this->cbRestDay4->AutoSize = true;
+			this->cbRestDay4->Location = System::Drawing::Point(1226, 115);
+			this->cbRestDay4->Name = L"cbRestDay4";
+			this->cbRestDay4->Size = System::Drawing::Size(36, 16);
+			this->cbRestDay4->TabIndex = 17;
+			this->cbRestDay4->Text = L"금";
+			this->cbRestDay4->UseVisualStyleBackColor = true;
+			this->cbRestDay4->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbRestDay4_CheckedChanged);
+			// 
+			// cbSetRangeCredit
+			// 
+			this->cbSetRangeCredit->AutoSize = true;
+			this->cbSetRangeCredit->Enabled = false;
+			this->cbSetRangeCredit->Location = System::Drawing::Point(1280, 80);
+			this->cbSetRangeCredit->Name = L"cbSetRangeCredit";
+			this->cbSetRangeCredit->Size = System::Drawing::Size(98, 16);
+			this->cbSetRangeCredit->TabIndex = 18;
+			this->cbSetRangeCredit->Text = L"범위 (미구현)";
+			this->cbSetRangeCredit->UseVisualStyleBackColor = true;
+			// 
+			// cbRestDay5
+			// 
+			this->cbRestDay5->AutoSize = true;
+			this->cbRestDay5->Enabled = false;
+			this->cbRestDay5->Location = System::Drawing::Point(1278, 115);
+			this->cbRestDay5->Name = L"cbRestDay5";
+			this->cbRestDay5->Size = System::Drawing::Size(86, 16);
+			this->cbRestDay5->TabIndex = 19;
+			this->cbRestDay5->Text = L"토 (미구현)";
+			this->cbRestDay5->UseVisualStyleBackColor = true;
+			this->cbRestDay5->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbRestDay5_CheckedChanged);
+			// 
+			// lbRestTime
+			// 
+			this->lbRestTime->AutoSize = true;
+			this->lbRestTime->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(129)));
+			this->lbRestTime->Location = System::Drawing::Point(932, 151);
+			this->lbRestTime->Name = L"lbRestTime";
+			this->lbRestTime->Size = System::Drawing::Size(76, 16);
+			this->lbRestTime->TabIndex = 20;
+			this->lbRestTime->Text = L"시간 공강";
+			// 
+			// cbRestTimeDay
+			// 
+			this->cbRestTimeDay->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cbRestTimeDay->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(129)));
+			this->cbRestTimeDay->FormattingEnabled = true;
+			this->cbRestTimeDay->Location = System::Drawing::Point(1014, 145);
+			this->cbRestTimeDay->Name = L"cbRestTimeDay";
+			this->cbRestTimeDay->Size = System::Drawing::Size(50, 24);
+			this->cbRestTimeDay->TabIndex = 21;
+			// 
+			// cbRestTimeStart
+			// 
+			this->cbRestTimeStart->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cbRestTimeStart->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(129)));
+			this->cbRestTimeStart->FormattingEnabled = true;
+			this->cbRestTimeStart->Location = System::Drawing::Point(1070, 145);
+			this->cbRestTimeStart->Name = L"cbRestTimeStart";
+			this->cbRestTimeStart->Size = System::Drawing::Size(100, 24);
+			this->cbRestTimeStart->TabIndex = 22;
+			// 
+			// cbRestTimeEnd
+			// 
+			this->cbRestTimeEnd->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cbRestTimeEnd->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(129)));
+			this->cbRestTimeEnd->FormattingEnabled = true;
+			this->cbRestTimeEnd->Location = System::Drawing::Point(1195, 145);
+			this->cbRestTimeEnd->Name = L"cbRestTimeEnd";
+			this->cbRestTimeEnd->Size = System::Drawing::Size(100, 24);
+			this->cbRestTimeEnd->TabIndex = 23;
+			// 
+			// btRestTimeAdd
+			// 
+			this->btRestTimeAdd->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(129)));
+			this->btRestTimeAdd->Location = System::Drawing::Point(1301, 145);
+			this->btRestTimeAdd->Name = L"btRestTimeAdd";
+			this->btRestTimeAdd->Size = System::Drawing::Size(55, 24);
+			this->btRestTimeAdd->TabIndex = 24;
+			this->btRestTimeAdd->Text = L"추가";
+			this->btRestTimeAdd->UseVisualStyleBackColor = true;
+			this->btRestTimeAdd->Click += gcnew System::EventHandler(this, &MainForm::btRestTimeAdd_Click);
+			// 
+			// lbRestTimeStoE
+			// 
+			this->lbRestTimeStoE->AutoSize = true;
+			this->lbRestTimeStoE->Font = (gcnew System::Drawing::Font(L"굴림", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(129)));
+			this->lbRestTimeStoE->Location = System::Drawing::Point(1173, 149);
+			this->lbRestTimeStoE->Name = L"lbRestTimeStoE";
+			this->lbRestTimeStoE->Size = System::Drawing::Size(19, 16);
+			this->lbRestTimeStoE->TabIndex = 25;
+			this->lbRestTimeStoE->Text = L"~";
+			// 
+			// gvRestTimeList
+			// 
+			this->gvRestTimeList->AllowUserToAddRows = false;
+			this->gvRestTimeList->AllowUserToDeleteRows = false;
+			this->gvRestTimeList->AllowUserToResizeRows = false;
+			this->gvRestTimeList->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::DisableResizing;
+			this->gvRestTimeList->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {
+				this->dataGridViewTextBoxColumn1,
+					this->dataGridViewTextBoxColumn2
+			});
+			this->gvRestTimeList->Location = System::Drawing::Point(919, 179);
+			this->gvRestTimeList->MultiSelect = false;
+			this->gvRestTimeList->Name = L"gvRestTimeList";
+			this->gvRestTimeList->RowHeadersWidthSizeMode = System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::DisableResizing;
+			this->gvRestTimeList->RowTemplate->Height = 23;
+			this->gvRestTimeList->Size = System::Drawing::Size(454, 156);
+			this->gvRestTimeList->TabIndex = 26;
+			this->gvRestTimeList->RowHeaderMouseDoubleClick += gcnew System::Windows::Forms::DataGridViewCellMouseEventHandler(this, &MainForm::gvRestTimeList_RowHeaderMouseDoubleClick);
+			this->gvRestTimeList->RowsAdded += gcnew System::Windows::Forms::DataGridViewRowsAddedEventHandler(this, &MainForm::gvRestTimeList_RowsAdded);
+			this->gvRestTimeList->RowsRemoved += gcnew System::Windows::Forms::DataGridViewRowsRemovedEventHandler(this, &MainForm::gvRestTimeList_RowsRemoved);
+			// 
+			// dataGridViewTextBoxColumn1
+			// 
+			this->dataGridViewTextBoxColumn1->HeaderText = L"num";
+			this->dataGridViewTextBoxColumn1->Name = L"dataGridViewTextBoxColumn1";
+			this->dataGridViewTextBoxColumn1->Width = 35;
+			// 
+			// dataGridViewTextBoxColumn2
+			// 
+			this->dataGridViewTextBoxColumn2->HeaderText = L"공강 시간";
+			this->dataGridViewTextBoxColumn2->Name = L"dataGridViewTextBoxColumn2";
+			this->dataGridViewTextBoxColumn2->ReadOnly = true;
+			this->dataGridViewTextBoxColumn2->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::NotSortable;
+			this->dataGridViewTextBoxColumn2->Width = 375;
 			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(7, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1384, 691);
-			this->Controls->Add(this->cbHoliday4);
-			this->Controls->Add(this->cbHoliday3);
-			this->Controls->Add(this->cbHoliday2);
-			this->Controls->Add(this->cbHoliday1);
-			this->Controls->Add(this->cbHoliday0);
-			this->Controls->Add(this->lbHoliday);
+			this->ClientSize = System::Drawing::Size(1384, 901);
+			this->Controls->Add(this->gvRestTimeList);
+			this->Controls->Add(this->lbRestTimeStoE);
+			this->Controls->Add(this->btRestTimeAdd);
+			this->Controls->Add(this->cbRestTimeEnd);
+			this->Controls->Add(this->cbRestTimeStart);
+			this->Controls->Add(this->cbRestTimeDay);
+			this->Controls->Add(this->lbRestTime);
+			this->Controls->Add(this->cbRestDay5);
+			this->Controls->Add(this->cbSetRangeCredit);
+			this->Controls->Add(this->cbRestDay4);
+			this->Controls->Add(this->cbRestDay3);
+			this->Controls->Add(this->cbRestDay2);
+			this->Controls->Add(this->cbRestDay1);
+			this->Controls->Add(this->cbRestDay0);
+			this->Controls->Add(this->lbRestDay);
 			this->Controls->Add(this->btIDSelect);
 			this->Controls->Add(this->tbIDSelect);
 			this->Controls->Add(this->btIdxSelect);
@@ -471,6 +683,7 @@ namespace TimeTableGenerator {
 			this->Text = L"시간표 생성기";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->gvCourseList))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->gvSelectCourse))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->gvRestTimeList))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -489,42 +702,40 @@ namespace TimeTableGenerator {
 
 
 	private:
-		bool isInitializing = true;
-		bool isEnd_CellStateChangedEvent = true;
+		const int mMaxSelectCount = 60;
+		const int mNumberOfLank = 6;
 
-		List<bool>^ isSelectedCourse;
-		Dictionary<String^, CheckBox^>^ mCheckHoliday;
+		bool mProcessCheck_Initializing = false;
+		bool mProcessCheck_SelectCourse = false;
+		bool mProcessCheck_UnSelectCourse = false;
+		bool mProcessCheck_ModifySelectedCourseLank = false;
+
+		vector<Course>* mCourseList;
+		vector<pair<int, Course>>* mSelectedCourseInfoList;
+
+		unordered_set<string>* mRestDaySet;
+		vector<Course::LectureTime>* mRestTimeList;
 
 
 
-	private:
+
+	private:   // 멤버 초기화
 		System::Void InitialzerMembers() {
-			Init_gvCourseList();
-			Init_gvSelectCourse();
-			Init_cbTargetCredit();
-			Init_cbHoliday();
+			Init_CourseList();
+			Init_SelectedCourse();
+			Init_TargetCredit();
+			Init_Rest();
 		}
 
-		System::Void Init_gvCourseList() {
-			isSelectedCourse = gcnew List<bool>();
-			for (auto& course : CourseManager::Load_CourseList()) {
-				gvCourseList->Rows->Add(
-					gvCourseList->Rows->Count.ToString(),
-					ToGcString(course.curriculum),
-					ToGcString(course.id.format()),
-					ToGcString(course.name),
-					ToGcString(course.credit),
-					ToGcString(course.professor),
-					course.times.size() > 0 ? ToGcString(course.times[0].format()) : ToGcString(string()),
-					course.times.size() > 1 ? ToGcString(course.times[1].format()) : ToGcString(string()),
-					course.times.size() > 2 ? ToGcString(course.times[2].format()) : ToGcString(string())
-				);
-				isSelectedCourse->Add(false);
-			}
+		System::Void Init_CourseList() {
+			mCourseList = new vector<Course>();
+			LoadCourse();
 		}
 
-		System::Void Init_gvSelectCourse() {
+		System::Void Init_SelectedCourse() {
+			mSelectedCourseInfoList = new vector<pair<int, Course>>();
 			DataGridViewComboBoxColumn^ cbColumn = gcnew DataGridViewComboBoxColumn();
+
 			cbColumn->Width = 75;
 			cbColumn->HeaderText = "선호도";
 			cbColumn->DisplayStyle = DataGridViewComboBoxDisplayStyle::ComboBox;
@@ -536,133 +747,147 @@ namespace TimeTableGenerator {
 			cbColumn->Items->Add("5) *");
 			gvSelectCourse->Columns->Add(cbColumn);
 		}
-		
-		System::Void Init_cbTargetCredit() {
+
+		System::Void Init_TargetCredit() {
 			cbTargetCredit->SelectedIndex = 0;
 		}
 
-		System::Void Init_cbHoliday() {
-			mCheckHoliday = gcnew Dictionary<String^, CheckBox^>();
-			mCheckHoliday->Add("월", cbHoliday0);
-			mCheckHoliday->Add("화", cbHoliday1);
-			mCheckHoliday->Add("수", cbHoliday2);
-			mCheckHoliday->Add("목", cbHoliday3);
-			mCheckHoliday->Add("금", cbHoliday4);
+		System::Void Init_Rest() {
+			mRestDaySet = new unordered_set<string>();
+			mRestTimeList = new vector<Course::LectureTime>();
+
+			cbRestTimeDay->Items->Add("월");
+			cbRestTimeDay->Items->Add("화");
+			cbRestTimeDay->Items->Add("수");
+			cbRestTimeDay->Items->Add("목");
+			cbRestTimeDay->Items->Add("금");
+			cbRestTimeDay->Items->Add("토");
+			cbRestTimeDay->SelectedIndex = 0;
+
+			for (int h = 8; h < 24; h++) {
+				for (int m = 0; m < 60; m += 30) {
+					cbRestTimeStart->Items->Add((h < 10 ? "0" : "") + h.ToString() + ":" + (m < 10 ? "0" : "") + m.ToString());
+					cbRestTimeEnd->Items->Add((h < 10 ? "0" : "") + h.ToString() + ":" + (m < 10 ? "0" : "") + m.ToString());
+				}
+			}
+			cbRestTimeStart->Items->RemoveAt(cbRestTimeStart->Items->Count - 1);
+			cbRestTimeEnd->Items->RemoveAt(0);
+			cbRestTimeStart->SelectedIndex = 0;
+			cbRestTimeEnd->SelectedIndex = 0;
 		}
 
+
+
+	private:   // 원하는 카테코리(특정 학과 전공, 일반 교양, 공통 교양 등,,,)에 해당하는 과목 리스트를 불러온다.
+		System::Void LoadCourse(/*string todo_implement*/) {   // TODO: 앱 개발 시 과목 카테고리 기능 추가 필요
+
+			*mCourseList = CourseManager::Load_CourseList();   // 불러온 과목 리스트를 mCourseList에 저장
+
+			for (auto& course : *mCourseList) {   // 불러온 과목 리스트를 gvCourseList에 추가하여 사용자에게 보여줌
+				gvCourseList->Rows->Add(
+					gvCourseList->Rows->Count.ToString(),
+					ToGcString(course.curriculum),
+					ToGcString(course.id.ToString()),
+					ToGcString(course.name),
+					ToGcString(course.credit),
+					ToGcString(course.professor),
+					course.times.size() > 0 ? ToGcString(course.times[0].ToString()) : ToGcString(string()),
+					course.times.size() > 1 ? ToGcString(course.times[1].ToString()) : ToGcString(string()),
+					course.times.size() > 2 ? ToGcString(course.times[2].ToString()) : ToGcString(string())
+				);
+			}
+		}
 
 
 
 	private: // gvCourseList에서 과목을 선택하는 이벤트
-		System::Void Select_Form_CourseList(int cListIdx) {	// courseList에서 선택한 과목을 selectCourse에 추가
-			if (isSelectedCourse[cListIdx]) { MessageBox::Show("이미 선택한 과목입니다"); return; }
-			if (gvSelectCourse->Rows->Count >= 60) { MessageBox::Show("최대 60개의 과목을 선택할 수 있습니다 (TimeTable - Beta)"); return; }
+		System::Boolean IsAlreadySelectedCourse(Course& newCourse) {
+			for (auto& selectedCourseInfo : *mSelectedCourseInfoList)
+				if (selectedCourseInfo.second == newCourse) return true;
+			return false;
+		}
 
-			isSelectedCourse[cListIdx] = true;
-			int sListIdx = gvSelectCourse->Rows->Add(
-				cListIdx.ToString(),
-				gvCourseList->Rows[cListIdx]->Cells[2]->Value,
-				gvCourseList->Rows[cListIdx]->Cells[3]->Value,
-				gvCourseList->Rows[cListIdx]->Cells[5]->Value
-			);
-			DataGridViewComboBoxCell^ cbCell = (DataGridViewComboBoxCell^)(gvSelectCourse->Rows[sListIdx]->Cells[4]);
-			cbCell->Value = cbCell->Items[5]->ToString();
+		System::Boolean IsFullSelectedCourse() {
+			return (int)mSelectedCourseInfoList->size() < mMaxSelectCount ? false : true;
+		}
+
+		System::Void SelectCourse(Course& newCourse) {	// gvCourseList에서 선택한 과목을 gvSelectedCourse에 추가
+			if (IsAlreadySelectedCourse(newCourse)) { MessageBox::Show("이미 선택한 과목입니다"); return; }   // 이미 선택한 과목이면 추가하는 과정을 진행하지 않음
+			if (IsFullSelectedCourse()) { MessageBox::Show("최대 " + mMaxSelectCount + "개의 과목을 선택할 수 있습니다(TimeTable - Beta)"); return; }   // 최대로 선택할 수 있는 과목 확인
+
+			// mSelectedCourseInfoList에 선택한 과목 추가
+			mSelectedCourseInfoList->push_back({ mNumberOfLank - 1, newCourse });
+			sort(mSelectedCourseInfoList->begin(), mSelectedCourseInfoList->end());
+
+			// gvSelectedCourse의 데이터 갱신
+			gvSelectCourse->Rows->Clear();
+			for (auto& [lank, course] : *mSelectedCourseInfoList) {
+				int idx = gvSelectCourse->Rows->Add(gvSelectCourse->Rows->Count, ToGcString(course.id.ToString()), ToGcString(course.name), ToGcString(course.professor));
+				auto comb = (DataGridViewComboBoxCell^)(gvSelectCourse->Rows[idx]->Cells[4]);
+				comb->Value = comb->Items[lank];
+			}
 		}
 
 		System::Void gridView_courseList_RowHeaderMouseDoubleClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellMouseEventArgs^ e) {	// 직접 클릭
-			Select_Form_CourseList(e->RowIndex);
+			mProcessCheck_SelectCourse = true;
+			SelectCourse((*mCourseList)[e->RowIndex]);
+			mProcessCheck_SelectCourse = false;
 		}
 
 		System::Void btIdxSelect_Click(System::Object^ sender, System::EventArgs^ e) {	// Idx 입력 후 버튼
-			int cListIdx = -1;
-			if (int::TryParse(tbIdxSelect->Text, cListIdx) && (0 <= cListIdx && cListIdx < gvCourseList->Rows->Count)) Select_Form_CourseList(cListIdx);
-			else if (cListIdx >= gvCourseList->Rows->Count) MessageBox::Show("Idx 최대값은 " + gvCourseList->Rows->Count.ToString() + "입니다");
+			mProcessCheck_SelectCourse = true;
+
+			int idx = -1;
+			if (int::TryParse(tbIdxSelect->Text, idx)) {
+				if (0 <= idx && idx < (int)(*mCourseList).size()) SelectCourse((*mCourseList)[idx]);
+				else MessageBox::Show("Idx 최대값은 " + ((int)(*mCourseList).size() - 1) + "입니다");
+			}
 			else MessageBox::Show("\"" + tbIdxSelect->Text + "\"는(은) " + "자연수로 변환할 수 없습니다");
 			tbIdxSelect->Text = "";
+
+			mProcessCheck_SelectCourse = false;
 		}
 
 		System::Void tbIdxSelect_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {	// Idx 입력 후 enter키
+			mProcessCheck_SelectCourse = true;
+
 			if (e->KeyChar == (char)Keys::Enter) {
-				int cListIdx = -1;
-				if (int::TryParse(tbIdxSelect->Text, cListIdx) && (0 <= cListIdx && cListIdx < gvCourseList->Rows->Count)) Select_Form_CourseList(cListIdx);
-				else if (cListIdx >= gvCourseList->Rows->Count) MessageBox::Show("Idx 최대값은 " + gvCourseList->Rows->Count.ToString() + "입니다");
+				int idx = -1;
+				if (int::TryParse(tbIdxSelect->Text, idx)) {
+					if (0 <= idx && idx < (int)(*mCourseList).size()) SelectCourse((*mCourseList)[idx]);
+					else MessageBox::Show("Idx 최대값은 " + ((int)(*mCourseList).size() - 1) + "입니다");
+				}
 				else MessageBox::Show("\"" + tbIdxSelect->Text + "\"는(은) " + "자연수로 변환할 수 없습니다");
 				tbIdxSelect->Text = "";
 			}
+
+			mProcessCheck_SelectCourse = false;
 		}
 
 
 
 	private: // gvSelectCourse에서 선택한 과목을 삭제하는 이벤트
 		System::Void gvSelectCourse_RowHeaderMouseDoubleClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellMouseEventArgs^ e) {
-			int sListIdx = e->RowIndex;
-			isSelectedCourse[int::Parse(gvSelectCourse->Rows[sListIdx]->Cells[0]->Value->ToString())] = false;
-			gvSelectCourse->Rows->RemoveAt(sListIdx);
-		}
+			mProcessCheck_UnSelectCourse = true;
 
+			int idx = e->RowIndex;
 
+			// mSelectedCourseInfoList의 idx번째 과목 삭제	
+			mSelectedCourseInfoList->erase(mSelectedCourseInfoList->begin() + idx);
 
-	private: // gvSelectCourse에서 과목의 우선순위를 변경했을 때, 발생하는 정렬 이벤트
-		System::Void gvSelectCourse_Sorted(System::Object^ sender, System::EventArgs^ e) {
-			if (isInitializing) return;
-			gvSelectCourse_Coloring();
-			isEnd_CellStateChangedEvent = true;
-		}
+			// gvSelectedCourse의 idx번째 과목 삭제하고 넘버링을 다시 한다
+			gvSelectCourse->Rows->RemoveAt(idx);
+			for (int i = 0; i < gvSelectCourse->Rows->Count; i++)
+				gvSelectCourse->Rows[i]->Cells[0]->Value = i;
 
-		System::Void gvSelectCourse_CellValueChanged(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
-			if (isInitializing) return;
-			if (isEnd_CellStateChangedEvent) gvSelectCourse->Sort(gvSelectCourse->Columns[4], ListSortDirection::Ascending);
-			else isEnd_CellStateChangedEvent = false;
-		}
-
-		System::Void gvSelectCourse_Coloring() {
-			for (int i = 0; i < gvSelectCourse->RowCount; i++) {
-				int cosLank = ToStdString(gvSelectCourse->Rows[i]->Cells[4]->Value->ToString())[0] - 48;
-
-				for (int j = 0; j < gvSelectCourse->Rows[i]->Cells->Count - 1; j++)
-					gvSelectCourse->Rows[i]->Cells[j]->Style->BackColor = cosLank == 0 ? Color::LightSalmon : Color::White;
-			}
-		}
-
-
-
-	private: // 현재의 세팅을 저장하고 시간표 생성하는 이벤트
-
-		System::Void btCallGenerator_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
-
-			auto targetCredit = stoi(ToStdString(cbTargetCredit->Text));
-			if (!(targetCredit > 0)) { MessageBox::Show("목표 학점을 1이상으로 설정하세요"); return; }
-
-			auto allCourseList = CourseManager::Load_CourseList();
-			auto numberOfEssentialCourse = 0;
-			auto numberOfNoramlCourse = 0;
-			auto courseInfoList = vector<pair<Course, int>>(1);
-
-
-			for (int i = 0; i < gvSelectCourse->RowCount; i++) {
-				int cosIdx = stoi(ToStdString(gvSelectCourse->Rows[i]->Cells[0]->Value->ToString()));
-				int cosLank = ToStdString(gvSelectCourse->Rows[i]->Cells[4]->Value->ToString())[0] - 48;
-				bool isHoliday = false;
-
-				for(auto& time : allCourseList[cosIdx].times)   // 선택한 과목이 공강과 겹치는지 확인
-					if (mCheckHoliday[ToGcString(time.day)]->Checked) { isHoliday = true; break; }
-
-				if (!isHoliday) {   // 공강과 겹치지 않는 과목 추가
-					if (cosLank == 0) numberOfEssentialCourse++;
-					else numberOfNoramlCourse++;
-					courseInfoList.push_back({ allCourseList[cosIdx], cosLank });
-				}
-			}
-
-			auto timeTabForm = gcnew TimeTabForm(targetCredit, numberOfEssentialCourse, numberOfNoramlCourse, courseInfoList);
-			timeTabForm->Show();
+			mProcessCheck_UnSelectCourse = false;
 		}
 
 
 
 	private: // gvSelectCourse에서 scroll의 유무에 따라 3번 column의 너비를 변경해야 한다
 		System::Void gvSelectCourse_RowsAdded(System::Object^ sender, System::Windows::Forms::DataGridViewRowsAddedEventArgs^ e) {
-			if (gvSelectCourse->Rows->Count > 22) 
+			if (gvSelectCourse->Rows->Count > 22)
 				gvSelectCourse->Columns[3]->Width = 82;
 		}
 
@@ -670,5 +895,129 @@ namespace TimeTableGenerator {
 			if (gvSelectCourse->Rows->Count < 23)
 				gvSelectCourse->Columns[3]->Width = 100;
 		}
+
+
+
+	private: // gvSelectCourse에서 과목의 우선순위를 변경했을 때, 발생하는 정렬 이벤트
+		System::Void gvSelectCourse_CellValueChanged(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+			if (mProcessCheck_Initializing || mProcessCheck_SelectCourse || mProcessCheck_UnSelectCourse || mProcessCheck_ModifySelectedCourseLank) return;
+			mProcessCheck_ModifySelectedCourseLank = true;
+
+			int eColumnIdx = e->ColumnIndex;
+			int eRowIdx = e->RowIndex;
+
+			if (eColumnIdx == 4) {
+				// mSelectedCourseInfoList의 eRowIdx번째 과목의 Lank변경
+				(*mSelectedCourseInfoList)[eRowIdx].first = ToStdString(gvSelectCourse->Rows[eRowIdx]->Cells[4]->Value->ToString())[0] - 48;
+				sort(mSelectedCourseInfoList->begin(), mSelectedCourseInfoList->end());
+
+				// gvSelectedCourse의 데이터 갱신
+				gvSelectCourse->Rows->Clear();
+				for (auto& [lank, course] : *mSelectedCourseInfoList) {
+					int idx = gvSelectCourse->Rows->Add(gvSelectCourse->Rows->Count, ToGcString(course.id.ToString()), ToGcString(course.name), ToGcString(course.professor));
+					auto comb = (DataGridViewComboBoxCell^)(gvSelectCourse->Rows[idx]->Cells[4]);
+					comb->Value = comb->Items[lank];
+
+					if (lank == 0) gvSelectCourse->Rows[idx]->DefaultCellStyle->BackColor = Color::FromArgb(240, 134, 118);   // 필수과목은 색상처리
+				}
+			}
+
+			mProcessCheck_ModifySelectedCourseLank = false;
+		}
+
+
+
+	private:   // 요일 공강 버튼에 대한 이벤트 처리
+		System::Void SelectRestDay(string day) {
+			if (mRestDaySet->find(day) == mRestDaySet->end()) mRestDaySet->insert(day);
+		}
+
+		System::Void UnSelectRestDay(string day) {
+			if (mRestDaySet->find(day) != mRestDaySet->end()) mRestDaySet->erase(day);
+		}
+
+		System::Void cbRestDay0_CheckedChanged(System::Object^ sender, System::EventArgs^ e) { ((CheckBox^)sender)->Checked ? SelectRestDay("월") : UnSelectRestDay("월"); }
+		System::Void cbRestDay1_CheckedChanged(System::Object^ sender, System::EventArgs^ e) { ((CheckBox^)sender)->Checked ? SelectRestDay("화") : UnSelectRestDay("화"); }
+		System::Void cbRestDay2_CheckedChanged(System::Object^ sender, System::EventArgs^ e) { ((CheckBox^)sender)->Checked ? SelectRestDay("수") : UnSelectRestDay("수"); }
+		System::Void cbRestDay3_CheckedChanged(System::Object^ sender, System::EventArgs^ e) { ((CheckBox^)sender)->Checked ? SelectRestDay("목") : UnSelectRestDay("목"); }
+		System::Void cbRestDay4_CheckedChanged(System::Object^ sender, System::EventArgs^ e) { ((CheckBox^)sender)->Checked ? SelectRestDay("금") : UnSelectRestDay("금"); }
+		System::Void cbRestDay5_CheckedChanged(System::Object^ sender, System::EventArgs^ e) { ((CheckBox^)sender)->Checked ? SelectRestDay("토") : UnSelectRestDay("토"); }
+
+
+
+	private:   // 시간 공강을 추가하는 이벤트
+		System::Void btRestTimeAdd_Click(System::Object^ sender, System::EventArgs^ e) {
+			if (cbRestTimeStart->SelectedIndex > cbRestTimeEnd->SelectedIndex) { MessageBox::Show("\'종료 시간\'은 \'시작 시간\'보다 나중이어야 합니다"); return; }
+
+			auto day = ToStdString(cbRestTimeDay->Text);
+			auto start = util::Split(ToStdString(cbRestTimeStart->Text), util::SplitType::Except, regex(R"(:)"));
+			auto end = util::Split(ToStdString(cbRestTimeEnd->Text), util::SplitType::Except, regex(R"(:)"));
+
+			mRestTimeList->push_back(Course::LectureTime({ day, stoi(start[0]) * 60 + stoi(start[1]),  stoi(end[0]) * 60 + stoi(end[1]) }));
+			gvRestTimeList->Rows->Add(gvRestTimeList->Rows->Count, cbRestTimeDay->Text + ", " + cbRestTimeStart->Text + "~" + cbRestTimeEnd->Text);
+		}
+
+
+
+	private:   // 시간 공강을 제거하는 이벤트
+		System::Void gvRestTimeList_RowHeaderMouseDoubleClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellMouseEventArgs^ e) {
+			int idx = e->RowIndex;
+
+			// mSelectedCourseInfoList의 idx번째 과목 삭제	
+			mRestTimeList->erase(mRestTimeList->begin() + idx);
+
+			// gvSelectedCourse의 idx번째 과목 삭제하고 넘버링을 다시 한다
+			gvRestTimeList->Rows->RemoveAt(idx);
+			for (int i = 0; i < gvRestTimeList->Rows->Count; i++)
+				gvRestTimeList->Rows[i]->Cells[0]->Value = i;
+		}
+
+
+
+	private:   // gvRestTimeList에서 scroll의 유무에 따라 1번 column의 너비를 변경해야 한다
+		System::Void gvRestTimeList_RowsAdded(System::Object^ sender, System::Windows::Forms::DataGridViewRowsAddedEventArgs^ e) {
+			if (gvRestTimeList->Rows->Count > 5)
+				gvRestTimeList->Columns[1]->Width = 358;
+		}
+		
+		System::Void gvRestTimeList_RowsRemoved(System::Object^ sender, System::Windows::Forms::DataGridViewRowsRemovedEventArgs^ e) {
+			if (gvRestTimeList->Rows->Count < 6)
+				gvRestTimeList->Columns[1]->Width = 375;
+		}
+
+
+
+	private: // 현재의 세팅을 저장하고 시간표 생성하는 이벤트
+
+		System::Boolean IsConflictWithRest(Course& course) {   // 선택한 course가 공강 요일 또는 공강 시간과 겹치는지 확인
+			for (auto& lectureTime : course.times) {
+				if (mRestDaySet->find(lectureTime.day) != mRestDaySet->end()) return true;   // course의 강의 요일이 공강 요일인 경우
+
+				for (auto& restTime : *mRestTimeList)
+					if (lectureTime.day == restTime.day && (lectureTime.start < restTime.end && lectureTime.end > restTime.start)) return true;   // course의 강의 시간이 공강 시간인 경우
+			}
+			return false;
+		}
+
+
+		System::Void btCallGenerator_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+
+			auto targetCredit = stoi(ToStdString(cbTargetCredit->Text));
+			if (!(targetCredit > 0)) { MessageBox::Show("목표 학점을 1이상으로 설정하세요"); return; }
+
+			auto numberOfEssentialCourse = 0;
+			auto numberOfNoramlCourse = 0;
+			auto courseInfoList = vector<pair<Course, int>>(1);
+
+			for (auto& [lank, course] : *mSelectedCourseInfoList) {
+				if (IsConflictWithRest(course)) continue;   // 공강 요일/시간 확인
+
+				lank == 0 ? ++numberOfEssentialCourse : ++numberOfNoramlCourse;
+				courseInfoList.push_back({ course, lank });
+			}
+
+			auto timeTabForm = gcnew TimeTabForm(targetCredit, numberOfEssentialCourse, numberOfNoramlCourse, courseInfoList);
+			timeTabForm->Show();
+		}	
 	};
 }

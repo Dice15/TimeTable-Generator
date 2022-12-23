@@ -1,5 +1,6 @@
-#pragma once
 
+#pragma once
+#include "./../../core/C++Header_STL.h"
 #include "./../../core/Course.h"
 
 

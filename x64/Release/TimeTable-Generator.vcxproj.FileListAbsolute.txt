@@ -1,0 +1,6 @@
+E:\OneDrive - dongguk.edu\CSE_Study\개인 프로젝트\TimeTable-Generator\TimeTable-Generator\x64\Release\TimeTable-Generator.vcxproj.AssemblyReference.cache
+E:\OneDrive - dongguk.edu\CSE_Study\개인 프로젝트\TimeTable-Generator\TimeTable-Generator\x64\Release\TimeTable-Generator.vcxproj.SuggestedBindingRedirects.cache
+E:\OneDrive - dongguk.edu\CSE_Study\개인 프로젝트\TimeTable-Generator\TimeTable-Generator\x64\Release\TimeTableGenerator.MainForm.resources
+E:\OneDrive - dongguk.edu\CSE_Study\개인 프로젝트\TimeTable-Generator\TimeTable-Generator\x64\Release\TimeTableGenerator.generator.ui.ShowTimeTabForm.resources
+E:\OneDrive - dongguk.edu\CSE_Study\개인 프로젝트\TimeTable-Generator\TimeTable-Generator\x64\Release\TimeTableGenerator.generator.ui.TimeTabForm.resources
+E:\OneDrive - dongguk.edu\CSE_Study\개인 프로젝트\TimeTable-Generator\TimeTable-Generator\x64\Release\TimeTable-Generator.vcxproj.GenerateResource.cache

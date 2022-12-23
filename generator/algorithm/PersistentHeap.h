@@ -1,9 +1,6 @@
 #pragma once
 
-#include <functional>
-#include <algorithm>
-#include <vector>
-using namespace std;
+#include "./../../core/C++Header_STL.h"
 
 
 

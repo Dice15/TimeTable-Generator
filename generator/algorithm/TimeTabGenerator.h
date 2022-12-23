@@ -1,14 +1,9 @@
-#pragma once
 
+#pragma once
+#include "./../../core/C++Header_STL.h"
 #include "./../../core/Course.h"
 #include "./WeightGraph.h"
 
-#include <string>
-#include <vector>
-#include <unordered_map>
-#include <functional>
-#include <algorithm>
-using namespace std;
 
 
 class TimeTabGenerator

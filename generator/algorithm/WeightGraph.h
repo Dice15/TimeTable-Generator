@@ -1,13 +1,7 @@
+
 #pragma once
-
+#include "./../../core/C++Header_STL.h"
 #include "./PersistentHeap.h"
-
-#include <functional>
-#include <random>
-#include <vector>
-#include <queue>
-#include <tuple>
-using namespace std;
 
 
 

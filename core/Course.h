@@ -1,11 +1,8 @@
-#pragma once
 
+#pragma once
+#include "./C++Header_STL.h"
 #include "./Utility.h"
 
-#include <fstream>
-#include <vector>
-#include <string>
-using namespace std;
 
 
 
@@ -14,11 +11,12 @@ class Course
 public:
 	struct CourseID {
 		string base, div;
-		string format() { return base + "-" + div; }
+		string ToString() { return base + "-" + div; }
 	};
+
 	struct LectureTime {
 		string day; int start, end;
-		string format() {
+		string ToString() {
 			auto format = [&](string& s) { if (s.size() == 1) s.insert(s.begin(), '0'); return s; };
 			return day + ", " + format(to_string(start / 60)) + ":" + format(to_string(start % 60)) + "~" + format(to_string(end / 60)) + ":" + format(to_string(end % 60));
 		}
@@ -33,6 +31,10 @@ public:
 
 	Course() {}
 	Course(string _curriculum, CourseID _id, string _name, int _credit, string _professor) :curriculum(_curriculum), id(_id), name(_name), credit(_credit), professor(_professor), times(vector<LectureTime>()) {}
+
+	bool operator<(const Course& other) const { return id.base == other.id.base ? id.div < other.id.div : id.base < other.id.base; }
+
+	bool operator==(const Course& other) const { return id.base == other.id.base && id.div == other.id.div; }
 };
 
 

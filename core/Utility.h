@@ -1,9 +1,7 @@
-#pragma once
 
-#include <vector>
-#include <string>
-#include <regex>
-using namespace std;
+#pragma once
+#include "./C++Header_STL.h"
+
 
 
 namespace util
