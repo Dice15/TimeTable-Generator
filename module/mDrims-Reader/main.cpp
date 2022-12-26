@@ -87,13 +87,24 @@ bool CSV_Format_Type1(string inputPath, string outputPath)   // CSV 파일 형식 ty
 		// 강의 시간 추가 List<요일, 시작 시간, 종료 시간>
 		if (IsEmptyBlock(fileLine[5])) newLine.push_back(fileLine[5]);
 		else {
+			auto prevLecture = tuple(string(), string(), string());
+
 			for (auto& lectureTime : util::Split(fileLine[5], util::Contain, regex(R"([^,"]{1,})"))) {
 				auto day = util::Split(lectureTime, util::Except, regex(R"(\d{1,}.\d{1,}-\d{1,}.\d{1,}/\d{1,}:\d{1,}-\d{1,}:\d{1,})"));
 				auto time = util::Split(lectureTime, util::Contain, regex(R"(\d{1,})"));
+				auto currLecture = tuple(day[0], to_string(stoi(time[4]) * 60 + stoi(time[5])), to_string(stoi(time[6]) * 60 + stoi(time[7])));
 
-				newLine.push_back(day[0]);
-				newLine.push_back(to_string(stoi(time[4]) * 60 + stoi(time[5])));
-				newLine.push_back(to_string(stoi(time[6]) * 60 + stoi(time[7])));
+				// 연속 강의면 합침
+				if (get<0>(prevLecture) == get<0>(currLecture) && get<2>(prevLecture) == get<1>(currLecture)) {
+					(* (--newLine.end())) = get<2>(currLecture);
+				}
+				else {
+					newLine.push_back(get<0>(currLecture));
+					newLine.push_back(get<1>(currLecture));
+					newLine.push_back(get<2>(currLecture));
+				}
+
+				prevLecture = currLecture;
 			}
 		}
 	}

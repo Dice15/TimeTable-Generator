@@ -53,10 +53,10 @@ public:
 		return t.find(p) != string::npos;
 	}
 
-	static vector<Course> Load_CourseList(string& path, tuple<string, string>& filter)
+	static vector<Course> Load_CourseList(string& path, tuple<string, string, string>& filter)
 	{
 		vector<Course> courseList;
-		ifstream ifs("./documents/mdrims/" + path);
+		ifstream ifs(path);
 		//ofstream ofs("./log.txt");
 	
 		if (ifs.is_open())
@@ -98,18 +98,13 @@ public:
 				}
 
 				// filter 眉农
-				bool pass = true;
-				auto& [courseName, professor] = filter;
-
-				if (!courseName.empty() && !IsSubString(newCourse.name, courseName))pass = false;
-				if (!professor.empty() && !IsSubString(newCourse.professor, professor))pass = false;
-
-				//if (!courseName.empty() && newCourse.name.find(courseName) == string::npos) pass = false;
-				//if (!professor.empty() && newCourse.professor.find(professor) == string::npos) pass = false;
+				auto& [courseName, courseID, professor] = filter;
+				if (!courseName.empty() && !IsSubString(newCourse.name, courseName)) continue;
+				if (!courseID.empty() && !IsSubString(newCourse.id.ToString(), courseID)) continue;
+				if (!professor.empty() && !IsSubString(newCourse.professor, professor)) continue;
 
 				// 积己等 苞格 眠啊
-				if (pass) courseList.push_back(newCourse);
-
+				courseList.push_back(newCourse);
 			}
 			ifs.close();
 		}
