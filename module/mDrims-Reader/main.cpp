@@ -20,10 +20,14 @@ void CreateCSV_LifelongEducation();       // 평생교육
 void CreateCSV_FreeChoice();              // 자유선택
 void CreateCSV_NanoDegree();              // 나노디그리
 
-// 공과대학
-void CreateCSV_Major_CSE();           // 공과대학-컴퓨터공학전공
-void CreateCSV_Major_MME();           // 공과대학-멀티미디어공학과
-
+// AI융합대학
+void CreateCSV_Major_ASW();           // AI융합대학-AI소프트웨어융합학부
+void CreateCSV_Major_CSE();           // AI융합대학-컴퓨터공학전공
+void CreateCSV_Major_MME();           // AI융합대학-멀티미디어소프트웨어공학전공
+void CreateCSV_Major_AIC();           // AI융합대학-인공지능전공
+void CreateCSV_Major_AID();           // AI융합대학-데이터사이언스전공
+void CreateCSV_Major_AIE();           // AI융합대학-엔터테인먼트테크놀로지전공
+void CreateCSV_Major_AIB();           // AI융합대학-AI융합대
 
 
 int main()
@@ -41,10 +45,15 @@ int main()
 	CreateCSV_FreeChoice();
 	CreateCSV_NanoDegree();
 
-	// 공과대학
-	cout << "\n- 공과대학\n";
+	// AI융합대학
+	cout << "\n- AI융합대학\n";
+	CreateCSV_Major_ASW();
 	CreateCSV_Major_CSE();
 	CreateCSV_Major_MME();
+	CreateCSV_Major_AIC();
+	CreateCSV_Major_AID();
+	CreateCSV_Major_AIE();
+	CreateCSV_Major_AIB();
 
 
 	cout << "\n\nfinish...\n\n";
@@ -177,16 +186,45 @@ void CreateCSV_NanoDegree() {  // 나노디그리
 
 
 
-// 공과대학
-void CreateCSV_Major_CSE() {   // 공과대학-컴퓨터공학전공
-	if (CSV_Format_Type1("./documents/origin/mdrims/전공/공과대학/컴퓨터공학전공.csv", "./documents/mdrims/전공/공과대학/컴퓨터공학전공.csv"))
+// AI융합대학
+void CreateCSV_Major_ASW() {   // AI융합대학-AI소프트웨어융합학부
+	if (CSV_Format_Type1("./documents/origin/mdrims/전공/AI융합대학/AI소프트웨어융합학부.csv", "./documents/mdrims/전공/AI융합대학/AI소프트웨어융합학부.csv"))
+		cout << "\"AI소프트웨어융합학부.CSV\" Created Successfully!!!\n";
+	else cout << "Failed to created \"AI소프트웨어융합학부.CSV\"\n";
+}
+
+void CreateCSV_Major_CSE() {   // AI융합대학-컴퓨터공학전공
+	if (CSV_Format_Type1("./documents/origin/mdrims/전공/AI융합대학/컴퓨터공학전공.csv", "./documents/mdrims/전공/AI융합대학/컴퓨터공학전공.csv"))
 		cout << "\"컴퓨터공학전공.CSV\" Created Successfully!!!\n";
 	else cout << "Failed to created \"컴퓨터공학전공.CSV\"\n";
 }
 
-void CreateCSV_Major_MME() {  // 공과대학-멀티미디어공학과
-	if (CSV_Format_Type1("./documents/origin/mdrims/전공/공과대학/멀티미디어공학과.csv", "./documents/mdrims/전공/공과대학/멀티미디어공학과.csv"))
-		cout << "\"멀티미디어공학과.CSV\" Created Successfully!!!\n";
-	else cout << "Failed to created \"멀티미디어공학과.CSV\"\n";
+void CreateCSV_Major_MME() {  // AI융합대학-멀티미디어소프트웨어공학전공
+	if (CSV_Format_Type1("./documents/origin/mdrims/전공/AI융합대학/멀티미디어소프트웨어공학전공.csv", "./documents/mdrims/전공/AI융합대학/멀티미디어소프트웨어공학전공.csv"))
+		cout << "\"멀티미디어소프트웨어공학전공.CSV\" Created Successfully!!!\n";
+	else cout << "Failed to created \"멀티미디어소프트웨어공학전공.CSV\"\n";
 }
 
+void CreateCSV_Major_AIC() {   // AI융합대학-인공지능전공
+	if (CSV_Format_Type1("./documents/origin/mdrims/전공/AI융합대학/인공지능전공.csv", "./documents/mdrims/전공/AI융합대학/인공지능전공.csv"))
+		cout << "\"인공지능전공.CSV\" Created Successfully!!!\n";
+	else cout << "Failed to created \"인공지능전공.CSV\"\n";
+}
+
+void CreateCSV_Major_AID() {   // AI융합대학-데이터사이언스전공
+	if (CSV_Format_Type1("./documents/origin/mdrims/전공/AI융합대학/데이터사이언스전공.csv", "./documents/mdrims/전공/AI융합대학/데이터사이언스전공.csv"))
+		cout << "\"데이터사이언스전공.CSV\" Created Successfully!!!\n";
+	else cout << "Failed to created \"데이터사이언스전공.CSV\"\n";
+}
+
+void CreateCSV_Major_AIE() {   // AI융합대학-엔터테인먼트테크놀로지전공
+	if (CSV_Format_Type1("./documents/origin/mdrims/전공/AI융합대학/엔터테인먼트테크놀로지전공.csv", "./documents/mdrims/전공/AI융합대학/엔터테인먼트테크놀로지전공.csv"))
+		cout << "\"엔터테인먼트테크놀로지전공.CSV\" Created Successfully!!!\n";
+	else cout << "Failed to created \"엔터테인먼트테크놀로지전공.CSV\"\n";
+}
+
+void CreateCSV_Major_AIB() {   // AI융합대학-AI융합대
+	if (CSV_Format_Type1("./documents/origin/mdrims/전공/AI융합대학/AI융합대.csv", "./documents/mdrims/전공/AI융합대학/AI융합대.csv"))
+		cout << "\"AI융합대.CSV\" Created Successfully!!!\n";
+	else cout << "Failed to created \"AI융합대.CSV\"\n";
+}

@@ -876,11 +876,16 @@ namespace TimeTableGenerator {
 			cbCurriculum->Items->Add("나노디그리");
 			cbCurriculum->SelectedIndex = 0;
 
-			cbUniversity->Items->Add("공과대학");
+			cbUniversity->Items->Add("AI융합대학");
 			cbUniversity->SelectedIndex = 0;
 
+			cbMajor->Items->Add("AI소프트웨어융합학부");
 			cbMajor->Items->Add("컴퓨터공학전공");
-			cbMajor->Items->Add("멀티미디어공학과");
+			cbMajor->Items->Add("멀티미디어소프트웨어공학전공");
+			cbMajor->Items->Add("인공지능전공");
+			cbMajor->Items->Add("데이터사이언스전공");
+			cbMajor->Items->Add("엔터테인먼트테크놀로지전공");
+			cbMajor->Items->Add("AI융합대");
 			cbMajor->SelectedIndex = 0;
 
 			tbCourseName->Text = "";
@@ -1071,12 +1076,12 @@ namespace TimeTableGenerator {
 
 	private:   // gvCourseList에서 scroll의 유무에 따라 3번 column의 너비를 변경해야 한다
 		System::Void gvCourseList_RowsAdded(System::Object^ sender, System::Windows::Forms::DataGridViewRowsAddedEventArgs^ e) {
-			if (gvCourseList->Rows->Count > 29)
+			if (gvCourseList->Rows->Count > 31)
 				gvCourseList->Columns[3]->Width = 100;
 		}
 
 		System::Void gvCourseList_RowsRemoved(System::Object^ sender, System::Windows::Forms::DataGridViewRowsRemovedEventArgs^ e) {
-			if (gvCourseList->Rows->Count < 30)
+			if (gvCourseList->Rows->Count < 32)
 				gvCourseList->Columns[3]->Width = 117;
 		}
 
